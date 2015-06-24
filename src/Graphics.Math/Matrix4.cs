@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,11 +37,27 @@ namespace Atlas.Math
         private readonly double _m43;
         private readonly double _m44;
 
+        //TODO: check whether W is necessary and replace paramters for Vector4
         public static Matrix4 CreateRotation(Vector3 axis, double angle)
         {
             throw new NotImplementedException();
         }
-        //TODO: check whether W is necessary and replace for Vector3
+
+        public static Matrix4 CreateXRotation(double angle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Matrix4 CreateYRotation(double angle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Matrix4 CreateZRotation(double angle)
+        {
+            throw new NotImplementedException();
+        }
+
         public static Matrix4 CreateTranslation(Vector3 offset)
         {
             return new Matrix4(1, 0, 0, offset.X,
@@ -51,35 +68,67 @@ namespace Atlas.Math
 
         public static Matrix4 CreateScale(Vector3 factor)
         {
+            Contract.Requires<ArgumentException>(factor.X != 0, "factor.X cannot be 0 or it will distort subjects");
+            Contract.Requires<ArgumentException>(factor.Y != 0, "factor.Y cannot be 0 or it will distort subjects");
+            Contract.Requires<ArgumentException>(factor.Z != 0, "factor.Z cannot be 0 or it will distort subjects");
+
             return new Matrix4(factor.X, 0, 0, 0,
                                0, factor.Y, 0, 0,
                                0, 0, factor.Z, 0,
                                0, 0, 0, 1);
         }
 
-        public static Vector4 operator *(Matrix4 matrix, Vector4 vector)
+        public static Vector4 operator *(Matrix4 m, Vector4 v)
         {
-            var x = matrix._m11 * vector.X +
-                    matrix._m12 * vector.Y +
-                    matrix._m13 * vector.Z +
-                    matrix._m14 * vector.W;
+            var x = m._m11 * v.X +
+                    m._m12 * v.Y +
+                    m._m13 * v.Z +
+                    m._m14 * v.W;
 
-            var y = matrix._m21 * vector.X +
-                    matrix._m22 * vector.Y +
-                    matrix._m23 * vector.Z +
-                    matrix._m24 * vector.W;
+            var y = m._m21 * v.X +
+                    m._m22 * v.Y +
+                    m._m23 * v.Z +
+                    m._m24 * v.W;
 
-            var z = matrix._m31 * vector.X +
-                    matrix._m32 * vector.Y +
-                    matrix._m33 * vector.Z +
-                    matrix._m34 * vector.W;
+            var z = m._m31 * v.X +
+                    m._m32 * v.Y +
+                    m._m33 * v.Z +
+                    m._m34 * v.W;
 
-            var w = matrix._m41 * vector.X +
-                    matrix._m42 * vector.Y +
-                    matrix._m43 * vector.Z +
-                    matrix._m44 * vector.W;
+            var w = m._m41 * v.X +
+                    m._m42 * v.Y +
+                    m._m43 * v.Z +
+                    m._m44 * v.W;
 
             return new Vector4(x, y, z, w);
+        }
+
+        public static Matrix4 operator *(Matrix4 m1, Matrix4 m2)
+        {
+            double m11 = (m1._m11 * m2._m11) + (m1._m12 * m2._m21) + (m1._m13 * m2._m31) + (m1._m14 * m2._m41);
+            double m12 = (m1._m11 * m2._m12) + (m1._m12 * m2._m22) + (m1._m13 * m2._m32) + (m1._m14 * m2._m42);
+            double m13 = (m1._m11 * m2._m13) + (m1._m12 * m2._m23) + (m1._m13 * m2._m33) + (m1._m14 * m2._m43);
+            double m14 = (m1._m11 * m2._m14) + (m1._m12 * m2._m24) + (m1._m13 * m2._m34) + (m1._m14 * m2._m44);
+
+            double m21 = (m1._m21 * m2._m11) + (m1._m22 * m2._m21) + (m1._m23 * m2._m31) + (m1._m24 * m2._m41);
+            double m22 = (m1._m21 * m2._m12) + (m1._m22 * m2._m22) + (m1._m23 * m2._m32) + (m1._m24 * m2._m42);
+            double m23 = (m1._m21 * m2._m13) + (m1._m22 * m2._m23) + (m1._m23 * m2._m33) + (m1._m24 * m2._m43);
+            double m24 = (m1._m21 * m2._m14) + (m1._m22 * m2._m24) + (m1._m23 * m2._m34) + (m1._m24 * m2._m44);
+
+            double m31 = (m1._m31 * m2._m11) + (m1._m32 * m2._m21) + (m1._m33 * m2._m31) + (m1._m34 * m2._m41);
+            double m32 = (m1._m31 * m2._m12) + (m1._m32 * m2._m22) + (m1._m33 * m2._m32) + (m1._m34 * m2._m42);
+            double m33 = (m1._m31 * m2._m13) + (m1._m32 * m2._m23) + (m1._m33 * m2._m33) + (m1._m34 * m2._m43);
+            double m34 = (m1._m31 * m2._m14) + (m1._m32 * m2._m24) + (m1._m33 * m2._m34) + (m1._m34 * m2._m44);
+
+            double m41 = (m1._m41 * m2._m11) + (m1._m42 * m2._m21) + (m1._m43 * m2._m31) + (m1._m44 * m2._m41);
+            double m42 = (m1._m41 * m2._m12) + (m1._m42 * m2._m22) + (m1._m43 * m2._m32) + (m1._m44 * m2._m42);
+            double m43 = (m1._m41 * m2._m13) + (m1._m42 * m2._m23) + (m1._m43 * m2._m33) + (m1._m44 * m2._m43);
+            double m44 = (m1._m41 * m2._m14) + (m1._m42 * m2._m24) + (m1._m43 * m2._m34) + (m1._m44 * m2._m44);
+
+            return new Matrix4(m11, m12, m13, m14,
+                               m21, m22, m23, m24,
+                               m31, m32, m33, m34,
+                               m41, m42, m43, m44);
         }
     }
 }

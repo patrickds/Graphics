@@ -1,0 +1,16 @@
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\Atlas.Math.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\nunit.framework.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.Mvc.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\Atlas.Math.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\nunit.framework.xml
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.xml
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.Mvc.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\SharpTestsEx.Mvc.xml
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\obj\Debug\Graphics.Math.Tests.csprojResolveAssemblyReference.cache
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\CodeContracts.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\Graphics.Math.Tests.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\bin\Debug\Graphics.Math.Tests.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\obj\Debug\Graphics.Math.Tests.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math.Tests\obj\Debug\Graphics.Math.Tests.pdb

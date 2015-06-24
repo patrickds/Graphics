@@ -1,0 +1,6 @@
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Atlas.Math.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Atlas.Math.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Graphics.Math.csprojResolveAssemblyReference.cache
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.rewritten
