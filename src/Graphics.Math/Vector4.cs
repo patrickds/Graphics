@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Graphics.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atlas.Math
+namespace Graphics.Math
 {
     public struct Vector4
     {
@@ -32,6 +33,24 @@ namespace Atlas.Math
 
         private readonly double _w;
         public double W { get { return _w; } }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector4))
+                return false;
+
+            var vector = (Vector4)obj;
+
+            return _x.IsEqualsTo(vector.X) &&
+                   _y.IsEqualsTo(vector.Y) &&
+                   _z.IsEqualsTo(vector.Z) &&
+                   _w.IsEqualsTo(vector.W);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)((((_x * 17) + _y * 17) + _z * 17) + _w * 17) + base.GetHashCode();
+        }
 
         public override string ToString()
         {

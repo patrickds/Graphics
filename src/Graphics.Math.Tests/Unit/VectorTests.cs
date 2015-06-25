@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Atlas.Math.Tests.Unit
+namespace Graphics.Math.Tests.Unit
 {
     [TestFixture]
     public class VectorTests

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atlas.Math
+namespace Graphics.Math
 {
     public struct Vector3
     {

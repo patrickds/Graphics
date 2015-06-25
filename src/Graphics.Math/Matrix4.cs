@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atlas.Math
+namespace Graphics.Math
 {
     public class Matrix4
     {
@@ -37,25 +37,78 @@ namespace Atlas.Math
         private readonly double _m43;
         private readonly double _m44;
 
-        //TODO: check whether W is necessary and replace paramters for Vector4
-        public static Matrix4 CreateRotation(Vector3 axis, double angle)
+        public static Matrix4 Identity
         {
-            throw new NotImplementedException();
+            get
+            {
+                return new Matrix4(1, 0, 0, 0,
+                                   0, 1, 0, 0,
+                                   0, 0, 1, 0,
+                                   0, 0, 0, 1);
+            }
         }
 
-        public static Matrix4 CreateXRotation(double angle)
+        public static Matrix4 CreateRotation(Vector3 axis, double radians)
         {
-            throw new NotImplementedException();
+            double x = axis.X;
+            double y = axis.Y;
+            double z = axis.Z;
+            double xy = x * y;
+            double xz = x * z;
+            double yz = y * z;
+            double sqrX = x * x;
+            double sqrY = y * y;
+            double sqrZ = z * z;
+            double cos = System.Math.Cos(radians);
+            double sin = System.Math.Sin(radians);
+
+            double m11 = sqrX + (cos * (1d - sqrX));
+            double m12 = (xy - (cos * xy)) + (sin * z);
+            double m13 = (xz - (cos * xz)) - (sin * y);
+            double m21 = (xy - (cos * xy)) - (sin * z);
+            double m22 = sqrY + (cos * (1d - sqrY));
+            double m23 = (yz - (cos * yz)) + (sin * x);
+            double m31 = (xz - (cos * xz)) + (sin * y);
+            double m32 = (yz - (cos * yz)) - (sin * x);
+            double m33 = sqrZ + (cos * (1d - sqrZ));
+
+            return new Matrix4(m11, m12, m13, 0,
+                               m21, m22, m23, 0,
+                               m31, m32, m33, 0,
+                               0, 0, 0, 1);
         }
 
-        public static Matrix4 CreateYRotation(double angle)
+        public static Matrix4 CreateXRotation(double radians)
         {
-            throw new NotImplementedException();
+            var cos = System.Math.Cos(radians);
+            var sin = System.Math.Sin(radians);
+
+            return new Matrix4(0,  0,    0,  0,
+                               0, cos, -sin, 0,
+                               0, sin,  cos, 0,
+                               0,  0,    0,  1);
         }
 
-        public static Matrix4 CreateZRotation(double angle)
+        public static Matrix4 CreateYRotation(double radians)
         {
-            throw new NotImplementedException();
+            var cos = System.Math.Cos(radians);
+            var sin = System.Math.Sin(radians);
+
+            return new Matrix4(cos, 0, -sin, 0,
+                                0,  0,   0,  0,
+                               sin, 0,  cos, 0,
+                                0,  0,   0,  1);
+        }
+
+        public static Matrix4 CreateZRotation(double radians)
+        {
+            var cos = System.Math.Cos(radians);
+            var sin = System.Math.Sin(radians);
+
+            return new Matrix4(cos, -sin, 0, 0,
+                               sin,  cos, 0, 0,
+                                0,    0,  0, 0,
+                                0,    0,  0, 1);
         }
 
         public static Matrix4 CreateTranslation(Vector3 offset)

@@ -79,11 +79,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Unit\MathHelperTests.cs" />
     <Compile Include="Unit\MatrixTests.cs" />
     <Compile Include="Unit\VectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Graphics.Extensions\Graphics.Extensions.csproj">
+      <Project>{14993b07-1b61-4ad6-ae55-a5d47b9369df}</Project>
+      <Name>Graphics.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Graphics.Math\Graphics.Math.csproj">
       <Project>{64d5ba12-0ec9-47b2-9faf-b84cfe21bddb}</Project>
       <Name>Graphics.Math</Name>

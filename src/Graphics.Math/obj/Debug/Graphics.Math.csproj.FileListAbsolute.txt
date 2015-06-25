@@ -1,6 +1,8 @@
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Atlas.Math.dll
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Atlas.Math.pdb
 C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Graphics.Math.csprojResolveAssemblyReference.cache
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.dll
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.pdb
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Atlas.Math.rewritten
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Graphics.Math.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Graphics.Math.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Graphics.Math.rewritten
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Graphics.Math.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\obj\Debug\Graphics.Math.pdb
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Graphics.Extensions.dll
+C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Math\bin\Debug\Graphics.Extensions.pdb
