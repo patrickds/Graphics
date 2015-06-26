@@ -1,5 +1,0 @@
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Extensions\bin\Debug\Graphics.Extensions.dll
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Extensions\bin\Debug\Graphics.Extensions.pdb
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Extensions\obj\Debug\Graphics.Extensions.csprojResolveAssemblyReference.cache
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Extensions\obj\Debug\Graphics.Extensions.dll
-C:\Users\patrick.santos\Workspaces\Graphics\src\Graphics.Extensions\obj\Debug\Graphics.Extensions.pdb
