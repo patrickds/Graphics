@@ -103,6 +103,7 @@ namespace Graphics.Math.Tests.Unit
 
         [Test]
         [TestCase(1, 0, 0, 90, 0, 1, 0)]
+        [TestCase(0.707106, 0.707106, 0, 90, -0.707106, 0.707106, 0)]
         public void CreateZRotation_ValiPositionAndValidRotation_ReturnsRotatedPosition(double inputX, double inputY, double inputZ, double degrees,
                                                                                         double expectedX, double expectedY, double expectedZ)
         {
