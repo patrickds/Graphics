@@ -13,6 +13,7 @@ namespace Graphics.Math
             _x = x;
             _y = y;
             _z = z;
+            _magnitude = System.Math.Sqrt(x * x + y * y + z * z);
         }
 
         public static Vector3 I = new Vector3(1, 0, 0);
@@ -27,6 +28,9 @@ namespace Graphics.Math
 
         private readonly double _z;
         public double Z { get { return _z; } }
+
+        private readonly double _magnitude;
+        public double Magnitude { get { return _magnitude; } }
 
         public static Vector3 operator +(Vector3 v1, Vector3 v2)
         {

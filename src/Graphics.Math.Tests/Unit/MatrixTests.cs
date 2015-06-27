@@ -71,6 +71,25 @@ namespace Graphics.Math.Tests.Unit
             var matrix = Matrix4.CreateScale(factor);
         }
 
+        //TODO:check negative axis stuff
+        [Test]
+        [TestCase(0, 1, 0, -1, 0, 0, 90, 0, 0, 1)]
+        [TestCase(1, 0, 0, 0, 0, -1, 90, 0, 1, 0)]
+        public void CreateRotation_ValidPositionAndValidRotation_ReturnsRotatedPosition(double inputX, double inputY, double inputZ,
+                                                                                        double axisX, double axisY, double axisZ, double degrees,
+                                                                                        double expectedX, double expectedY, double expectedZ)
+        {
+            var vector = new Vector4(inputX, inputY, inputZ, 1);
+            var axis = new Vector3(axisX, axisY, axisZ);
+            var radians = MathHelper.ToRadians(degrees);
+            var expected = new Vector4(expectedX, expectedY, expectedZ, 1);
+
+            var matrix = Matrix4.CreateRotation(axis, radians);
+            var result = matrix * vector;
+
+            result.Should().Be.EqualTo(expected);
+        }
+
         [Test]
         [TestCase(0, 1, 0, 90, 0, 0, 1)]
         public void CreateXRotation_ValiPositionAndValidRotation_ReturnsRotatedPosition(double inputX, double inputY, double inputZ, double degrees,

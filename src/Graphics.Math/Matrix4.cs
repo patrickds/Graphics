@@ -48,6 +48,11 @@ namespace Graphics.Math
             }
         }
 
+        public Vector4 Transform(Vector4 vector)
+        {
+            return this * vector;
+        }
+
         public static Matrix4 CreateRotation(Vector3 axis, double radians)
         {
             double x = axis.X;
@@ -61,16 +66,15 @@ namespace Graphics.Math
             double sqrZ = z * z;
             double cos = System.Math.Cos(radians);
             double sin = System.Math.Sin(radians);
-
             double m11 = sqrX + (cos * (1d - sqrX));
+            double m22 = sqrY + (cos * (1d - sqrY));
+            double m33 = sqrZ + (cos * (1d - sqrZ));
             double m12 = (xy - (cos * xy)) + (sin * z);
             double m13 = (xz - (cos * xz)) - (sin * y);
             double m21 = (xy - (cos * xy)) - (sin * z);
-            double m22 = sqrY + (cos * (1d - sqrY));
             double m23 = (yz - (cos * yz)) + (sin * x);
             double m31 = (xz - (cos * xz)) + (sin * y);
             double m32 = (yz - (cos * yz)) - (sin * x);
-            double m33 = sqrZ + (cos * (1d - sqrZ));
 
             return new Matrix4(m11, m12, m13, 0,
                                m21, m22, m23, 0,

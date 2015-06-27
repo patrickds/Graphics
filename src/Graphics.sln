@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{479C28
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Extensions", "Graphics.Extensions\Graphics.Extensions.csproj", "{14993B07-1B61-4AD6-AE55-A5D47B9369DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Core", "Graphics.Core\Graphics.Core.csproj", "{5FDC4FFB-F6EF-4417-8B33-02801764716F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Core.Tests", "Graphics.Core.Tests\Graphics.Core.Tests.csproj", "{543041F6-05D8-43AE-A9A0-EDC9FD275D3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{14993B07-1B61-4AD6-AE55-A5D47B9369DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14993B07-1B61-4AD6-AE55-A5D47B9369DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14993B07-1B61-4AD6-AE55-A5D47B9369DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDC4FFB-F6EF-4417-8B33-02801764716F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDC4FFB-F6EF-4417-8B33-02801764716F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDC4FFB-F6EF-4417-8B33-02801764716F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDC4FFB-F6EF-4417-8B33-02801764716F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543041F6-05D8-43AE-A9A0-EDC9FD275D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543041F6-05D8-43AE-A9A0-EDC9FD275D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543041F6-05D8-43AE-A9A0-EDC9FD275D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543041F6-05D8-43AE-A9A0-EDC9FD275D3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

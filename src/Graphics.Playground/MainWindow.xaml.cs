@@ -24,5 +24,17 @@ namespace Graphics
         {
             InitializeComponent();
         }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            drawingContext.DrawEllipse(
+                Brushes.Black,
+                new Pen(Brushes.Blue, 4),
+                new Point(325 / 2, 550 / 2),
+                10,
+                10);
+
+            base.OnRender(drawingContext);
+        }
     }
 }

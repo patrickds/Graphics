@@ -37,7 +37,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +52,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Viewport.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,9 +94,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Graphics.Math.Tests\Graphics.Math.Tests.csproj">
-      <Project>{6a4283e8-4a71-401b-9256-3c8df086c9a7}</Project>
-      <Name>Graphics.Math.Tests</Name>
+    <ProjectReference Include="..\Graphics.Core\Graphics.Core.csproj">
+      <Project>{5fdc4ffb-f6ef-4417-8b33-02801764716f}</Project>
+      <Name>Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Graphics.Math\Graphics.Math.csproj">
       <Project>{64d5ba12-0ec9-47b2-9faf-b84cfe21bddb}</Project>
