@@ -9,14 +9,26 @@ namespace Graphics.Playground
     {
         public Viewport()
         {
-            _environment = new Environment(new Vector2(350, 525));
+            _environment = new Environment();
         }
 
         private Environment _environment;
 
-        protected override void OnRender(DrawingContext drawingContext)
+        private void SetEnvironmentSize()
+        {
+            _environment.Width = this.RenderSize.Width;
+            _environment.Height = this.RenderSize.Height;
+        }
+
+        private void Render(DrawingContext drawingContext)
         {
             _environment.OnRender(drawingContext);
+        }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            this.SetEnvironmentSize();
+            this.Render(drawingContext);
             base.OnRender(drawingContext);
         }
     }

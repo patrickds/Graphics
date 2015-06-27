@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphics.Core;
+using Graphics.Math;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,26 +16,11 @@ using System.Windows.Shapes;
 
 namespace Graphics
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawEllipse(
-                Brushes.Black,
-                new Pen(Brushes.Blue, 4),
-                new Point(325 / 2, 550 / 2),
-                10,
-                10);
-
-            base.OnRender(drawingContext);
         }
     }
 }

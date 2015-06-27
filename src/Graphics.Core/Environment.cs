@@ -11,14 +11,15 @@ namespace Graphics.Core
 {
     public class Environment
     {
-        public Environment(Vector2 screenSize)
+        public Environment()
         {
             _entities = new List<Entity>();
-            _screenSize = screenSize;
         }
 
         private List<Entity> _entities;
-        private Vector2 _screenSize;
+
+        public double Width { get; set; }
+        public double Height { get; set; }
 
         private void Add(Entity entity)
         {
@@ -35,7 +36,7 @@ namespace Graphics.Core
             drawingContext.DrawEllipse(
                 Brushes.Black, 
                 new Pen(Brushes.Blue, 4),
-                new Point(_screenSize.X / 2,_screenSize.Y / 2),
+                new Point(this.Width / 2, this.Height / 2),
                 10, 
                 10);
         }
