@@ -1,9 +1,4 @@
 ﻿using Graphics.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Graphics.Math
 {
@@ -31,7 +26,9 @@ namespace Graphics.Math
 
         private readonly double _z;
         public double Z { get { return _z; } }
-
+        
+        //If w == 1, then the vector (x,y,z,1) is a position in space.
+        //If w == 0, then the vector (x,y,z,0) is a direction
         private readonly double _w;
         public double W { get { return _w; } }
 

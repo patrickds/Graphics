@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Graphics.Extensions;
 
 namespace Graphics.Math
 {
+    //Scale it first if needed; then set its direction, then translate it.
+    //var transformedVector = translation * rotation * scaling * vector;
     public class Matrix4
     {
-        private Matrix4(double m11, double m12, double m13, double m14,
-                        double m21, double m22, double m23, double m24,
-                        double m31, double m32, double m33, double m34,
-                        double m41, double m42, double m43, double m44)
+        public Matrix4(double m11, double m12, double m13, double m14,
+                       double m21, double m22, double m23, double m24,
+                       double m31, double m32, double m33, double m34,
+                       double m41, double m42, double m43, double m44)
         {
             _m11 = m11; _m12 = m12; _m13 = m13; _m14 = m14;
             _m21 = m21; _m22 = m22; _m23 = m23; _m24 = m24;
@@ -140,6 +139,39 @@ namespace Graphics.Math
                                0, factor.Y, 0, 0,
                                0, 0, factor.Z, 0,
                                0, 0, 0, 1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Matrix4))
+                return false;
+
+            var matrix = obj as Matrix4;
+
+            return _m11.IsEqualsTo(matrix._m11) &&
+                   _m12.IsEqualsTo(matrix._m12) &&
+                   _m13.IsEqualsTo(matrix._m13) &&
+                   _m14.IsEqualsTo(matrix._m14) &&
+                   _m21.IsEqualsTo(matrix._m21) &&
+                   _m22.IsEqualsTo(matrix._m22) &&
+                   _m23.IsEqualsTo(matrix._m23) &&
+                   _m24.IsEqualsTo(matrix._m24) &&
+                   _m31.IsEqualsTo(matrix._m31) &&
+                   _m32.IsEqualsTo(matrix._m32) &&
+                   _m33.IsEqualsTo(matrix._m33) &&
+                   _m34.IsEqualsTo(matrix._m34) &&
+                   _m41.IsEqualsTo(matrix._m41) &&
+                   _m42.IsEqualsTo(matrix._m42) &&
+                   _m43.IsEqualsTo(matrix._m43) &&
+                   _m44.IsEqualsTo(matrix._m44);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)(_m11 * 17 + _m12 * 17 + _m13 * 17 + _m14 * 17 +
+                         _m21 * 17 + _m22 * 17 + _m23 * 17 + _m24 * 17 +
+                         _m31 * 17 + _m32 * 17 + _m33 * 17 + _m34 * 17 +
+                         _m41 * 17 + _m42 * 17 + _m43 * 17 + _m44 * 17)+ base.GetHashCode();
         }
 
         public static Vector4 operator *(Matrix4 m, Vector4 v)

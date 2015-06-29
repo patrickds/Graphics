@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Core.Tests", "Grap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Models", "Graphics.Models\Graphics.Models.csproj", "{D1E26EB2-F12F-4504-9BC3-20680FB7742A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.UI", "Graphics.UI\Graphics.UI.csproj", "{775766EA-383A-42EE-B1B8-BD3E19520B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{D1E26EB2-F12F-4504-9BC3-20680FB7742A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1E26EB2-F12F-4504-9BC3-20680FB7742A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1E26EB2-F12F-4504-9BC3-20680FB7742A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775766EA-383A-42EE-B1B8-BD3E19520B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775766EA-383A-42EE-B1B8-BD3E19520B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775766EA-383A-42EE-B1B8-BD3E19520B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775766EA-383A-42EE-B1B8-BD3E19520B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,7 @@
 ﻿using Graphics.Math;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -10,14 +12,30 @@ namespace Graphics.Core
     {
         public Face(IEnumerable<Vector4> points)
         {
+            Contract.Requires<ArgumentException>(points.Count() > 2, "Cannot build a face with less than 3 points");
+
             this.Points = points;
         }
 
         private const float POINT_RADIUS = 2;
-
+        private Pen _pen = new Pen(Brushes.Black, 1);
         public IEnumerable<Vector4> Points { get; set; }
 
-        private Pen _pen = new Pen(Brushes.Black, 1);
+        private IEnumerable<Line> BuildLines()
+        {
+            for (int i = 0; i < this.Points.Count(); i++)
+            {
+                var current = this.Points.ElementAt(i);
+                Vector4 next;
+
+                if (i == this.Points.Count() - 1)
+                    next = this.Points.ElementAt(0);
+                else
+                    next = this.Points.ElementAt(i + 1);
+
+                yield return new Line(new Point(current.X, current.Y), new Point(next.X, next.Y));
+            }
+        }
 
         //TODO: fix readonly vectors
         public void Transform(Matrix4 matrix)
@@ -34,27 +52,9 @@ namespace Graphics.Core
 
         internal void OnRender(DrawingContext drawingContext)
         {
-            for (int i = 0; i < this.Points.Count(); i++)
+            foreach (var line in this.BuildLines())
             {
-                var current = this.Points.ElementAt(i);
-                Vector4 next;
-                
-                if (i == this.Points.Count() - 1)
-                    next = this.Points.ElementAt(0);
-                else
-                    next = this.Points.ElementAt(i + 1);
-
-                var currentPoint = new Point(current.X, current.Y);
-                var nextPoint = new Point(next.X, next.Y);
-
-                drawingContext.DrawLine(_pen, currentPoint, nextPoint);
-
-                //drawingContext.DrawEllipse(
-                //    Brushes.Black,
-                //    _pen,
-                //    currentPoint,
-                //    POINT_RADIUS,
-                //    POINT_RADIUS);
+                drawingContext.DrawLine(_pen, line.Start, line.End);
             }
         }
     }

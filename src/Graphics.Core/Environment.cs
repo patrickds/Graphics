@@ -38,7 +38,7 @@ namespace Graphics.Core
                 entity.Transform(matrix);
             }
         }
-        
+
         public void OnRender(DrawingContext drawingContext)
         {
             foreach (var entity in _entities)

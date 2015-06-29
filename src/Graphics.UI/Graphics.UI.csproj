@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1E26EB2-F12F-4504-9BC3-20680FB7742A}</ProjectGuid>
+    <ProjectGuid>{775766EA-383A-42EE-B1B8-BD3E19520B34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Graphics.Models</RootNamespace>
-    <AssemblyName>Graphics.Models</AssemblyName>
+    <RootNamespace>Graphics.UI</RootNamespace>
+    <AssemblyName>Graphics.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,13 +31,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cube.cs" />
+    <Compile Include="MouseControllers\MouseContollerProvider.cs" />
+    <Compile Include="MouseControllers\MouseController.cs" />
+    <Compile Include="MouseControllers\MouseControllerManager.cs" />
+    <Compile Include="MouseControllers\PanMouseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Viewport.xaml.cs">
+      <DependentUpon>Viewport.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Graphics.Core\Graphics.Core.csproj">
@@ -48,6 +62,25 @@
       <Project>{64d5ba12-0ec9-47b2-9faf-b84cfe21bddb}</Project>
       <Name>Graphics.Math</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Graphics.Models\Graphics.Models.csproj">
+      <Project>{d1e26eb2-f12f-4504-9bc3-20680fb7742a}</Project>
+      <Name>Graphics.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Viewport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1435632410_cursor_drag_hand.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

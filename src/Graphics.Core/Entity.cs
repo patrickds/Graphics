@@ -1,9 +1,11 @@
-﻿using Graphics.Math;
+﻿using Graphics.Core;
+using Graphics.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Graphics.Core
@@ -29,15 +31,6 @@ namespace Graphics.Core
         {
             foreach (var face in this.Faces)
             {
-                face.OnRender(drawingContext);
-            }
-        }
-
-        public void RenderTransform(DrawingContext drawingContext, Matrix4 matrix)
-        {
-            foreach (var face in this.Faces)
-            {
-                face.Transform(matrix);
                 face.OnRender(drawingContext);
             }
         }

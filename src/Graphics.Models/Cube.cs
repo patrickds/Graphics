@@ -1,10 +1,6 @@
 ﻿using Graphics.Core;
 using Graphics.Math;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Graphics.Models
 {
@@ -14,6 +10,8 @@ namespace Graphics.Models
             : base(faces)
         {
         }
+
+        public static Cube Default = Create(80);
 
         public static Cube Create(double scaleFactor)
         {
