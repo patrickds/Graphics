@@ -135,5 +135,26 @@ namespace Graphics.Math.Tests.Unit
 
             result.Should().Be.EqualTo(expected);
         }
+
+        [Test]
+        [TestCase(1, 0, 0, 2, 0, 0, 2, 1, 1, 6, 0, 0)]
+        public void MatrixMultipplication_ValiPositionAndValidRotation_ReturnsTranslatedAndScaledPosition(double inputX, double inputY, double inputZ,
+                                                                                                          double translateX, double translateY, double translateZ,
+                                                                                                          double scaleX, double scaleY, double scaleZ,
+                                                                                                          double expectedX, double expectedY, double expectedZ)
+        {
+            var vector = new Vector4(inputX, inputY, inputZ, 1);
+            var translateVector = new Vector3(translateX, translateY, translateZ);
+            var scaleVector = new Vector3(scaleX, scaleY, scaleZ);
+            var expected = new Vector4(expectedX, expectedY, expectedZ, 1);
+
+            var translate = Matrix4.CreateTranslation(translateVector);
+            var scale = Matrix4.CreateScale(scaleVector);
+            var transformation = scale * translate;
+
+            var result = transformation * vector;
+
+            result.Should().Be.EqualTo(expected);
+        }
     }
 }

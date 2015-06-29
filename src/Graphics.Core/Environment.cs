@@ -21,24 +21,30 @@ namespace Graphics.Core
         public double Width { get; set; }
         public double Height { get; set; }
 
-        private void Add(Entity entity)
+        public void Add(Entity entity)
         {
             _entities.Add(entity);
         }
 
-        private void Remove(Entity entity)
+        public void Remove(Entity entity)
         {
             _entities.Remove(entity);
+        }
+
+        public void Transform(Matrix4 matrix)
+        {
+            foreach (var entity in _entities)
+            {
+                entity.Transform(matrix);
+            }
         }
         
         public void OnRender(DrawingContext drawingContext)
         {
-            drawingContext.DrawEllipse(
-                Brushes.Black, 
-                new Pen(Brushes.Blue, 4),
-                new Point(this.Width / 2, this.Height / 2),
-                10, 
-                10);
+            foreach (var entity in _entities)
+            {
+                entity.OnRender(drawingContext);
+            }
         }
     }
 }

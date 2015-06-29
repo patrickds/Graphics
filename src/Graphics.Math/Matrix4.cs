@@ -123,6 +123,13 @@ namespace Graphics.Math
                                0, 0, 0, 1);
         }
 
+        public static Matrix4 CreateScale(double factor)
+        {
+            Contract.Requires<ArgumentException>(factor != 0, "factor cannot be 0 or subject will disapear");
+            
+            return CreateScale(new Vector3(factor, factor, factor));
+        }
+
         public static Matrix4 CreateScale(Vector3 factor)
         {
             Contract.Requires<ArgumentException>(factor.X != 0, "factor.X cannot be 0 or it will distort subjects");

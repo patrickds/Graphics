@@ -102,6 +102,10 @@
       <Project>{64d5ba12-0ec9-47b2-9faf-b84cfe21bddb}</Project>
       <Name>Graphics.Math</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Graphics.Models\Graphics.Models.csproj">
+      <Project>{d1e26eb2-f12f-4504-9bc3-20680fb7742a}</Project>
+      <Name>Graphics.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
