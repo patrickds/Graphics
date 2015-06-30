@@ -27,11 +27,11 @@ namespace Graphics.Core
             }
         }
 
-        public void OnRender(DrawingContext drawingContext)
+        public void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
             foreach (var face in this.Faces)
             {
-                face.OnRender(drawingContext);
+                face.OnRender(drawingContext, transformation);
             }
         }
     }

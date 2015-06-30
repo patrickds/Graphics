@@ -21,7 +21,7 @@ namespace Graphics.Core
         private Pen _pen = new Pen(Brushes.Black, 1);
         public IEnumerable<Vector4> Points { get; set; }
 
-        private IEnumerable<Line> BuildLines()
+        private IEnumerable<Line> BuildLines(Matrix4 transformation)
         {
             for (int i = 0; i < this.Points.Count(); i++)
             {
@@ -32,6 +32,9 @@ namespace Graphics.Core
                     next = this.Points.ElementAt(0);
                 else
                     next = this.Points.ElementAt(i + 1);
+
+                current = transformation * current;
+                next = transformation * next;
 
                 yield return new Line(new Point(current.X, current.Y), new Point(next.X, next.Y));
             }
@@ -50,9 +53,9 @@ namespace Graphics.Core
             this.Points = points;
         }
 
-        internal void OnRender(DrawingContext drawingContext)
+        internal void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
-            foreach (var line in this.BuildLines())
+            foreach (var line in this.BuildLines(transformation))
             {
                 drawingContext.DrawLine(_pen, line.Start, line.End);
             }

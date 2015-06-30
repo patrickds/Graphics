@@ -18,7 +18,7 @@ namespace Graphics.UI.MouseControllers
             return true;
         }
 
-        internal virtual void OnMouseUp(Viewport sender, MouseButtonEventArgs e)
+        internal virtual void ExecuteMouseUp(Viewport sender, MouseButtonEventArgs e)
         {
         }
 
@@ -27,16 +27,16 @@ namespace Graphics.UI.MouseControllers
             return true;
         }
 
-        internal virtual void OnMouseDown(Viewport sender, MouseButtonEventArgs e)
+        internal virtual void ExecuteMouseDown(Viewport sender, MouseButtonEventArgs e)
         {
         }
 
-        internal virtual bool CanExecuteMouseWheel(Viewport sender, MouseButtonEventArgs e)
+        internal virtual bool CanExecuteMouseWheel(Viewport sender, MouseWheelEventArgs e)
         {
             return true;
         }
 
-        internal virtual void OnMouseWheel(Viewport sender, MouseButtonEventArgs e)
+        internal virtual void ExecuteMouseWheel(Viewport sender, MouseWheelEventArgs e)
         {
         }
 
@@ -45,7 +45,7 @@ namespace Graphics.UI.MouseControllers
             return true;
         }
 
-        internal virtual void OnMouseMove(Viewport sender, MouseEventArgs e)
+        internal virtual void ExecuteMouseMove(Viewport sender, MouseEventArgs e)
         {
         }
     }

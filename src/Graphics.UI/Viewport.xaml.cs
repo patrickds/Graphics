@@ -24,18 +24,15 @@ namespace Graphics.UI
         {
             _environment = new Environment();
             RenderOptions.SetEdgeMode(this, EdgeMode.Aliased);
-
-            this.Loaded += (sender, e) => { this.CreateTestEntities(); };
+            this.CreateTestEntities();
         }
 
         private Environment _environment;
 
         private void CreateTestEntities()
         {
-            var cube = Cube.Create(60);
-            var translation = Matrix4.CreateTranslation(new Vector3(this.ActualWidth / 2, this.ActualHeight / 2, 0));
+            var cube = Cube.Create(0.2d);
 
-            cube.Transform(translation);
             _environment.Add(cube);
 
             this.InvalidateVisual();
@@ -56,6 +53,7 @@ namespace Graphics.UI
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
+            MouseControllerManager.Instance.Current = new PanMouseController();
             MouseControllerManager.Instance.OnMouseDown(this, e);
             base.OnMouseUp(e);
         }
@@ -70,6 +68,13 @@ namespace Graphics.UI
         {
             MouseControllerManager.Instance.OnMouseMove(this, e);
             base.OnMouseMove(e);
+        }
+
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            MouseControllerManager.Instance.Current = new ZoomMouseController();
+            MouseControllerManager.Instance.OnMouseWheel(this, e);
+            base.OnMouseWheel(e);
         }
 
         protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)

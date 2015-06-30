@@ -29,7 +29,7 @@ namespace Graphics.UI.MouseControllers
         {
             if (this.Current.CanExecuteMouseUp(sender, e))
             {
-                this.Current.OnMouseUp(sender, e);
+                this.Current.ExecuteMouseUp(sender, e);
             }
         }
 
@@ -37,7 +37,7 @@ namespace Graphics.UI.MouseControllers
         {
             if (this.Current.CanExecuteMouseDown(sender, e))
             {
-                this.Current.OnMouseDown(sender, e);
+                this.Current.ExecuteMouseDown(sender, e);
             }
         }
 
@@ -45,7 +45,15 @@ namespace Graphics.UI.MouseControllers
         {
             if (this.Current.CanExecuteMouseMove(sender, e))
             {
-                this.Current.OnMouseMove(sender, e);
+                this.Current.ExecuteMouseMove(sender, e);
+            }
+        }
+
+        internal void OnMouseWheel(Viewport sender, MouseWheelEventArgs e)
+        {
+            if(this.Current.CanExecuteMouseWheel(sender, e))
+            {
+                this.Current.ExecuteMouseWheel(sender, e);
             }
         }
     }

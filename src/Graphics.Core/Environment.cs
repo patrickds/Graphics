@@ -41,10 +41,23 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext)
         {
+            var transformation = this.GetTransformation();
+
             foreach (var entity in _entities)
             {
-                entity.OnRender(drawingContext);
+                entity.OnRender(drawingContext, transformation);
             }
+        }
+
+        private Matrix4 GetTransformation()
+        {
+            var halfWidth = this.Width / 2;
+            var halfHeight = this.Height / 2;
+
+            var translation = Matrix4.CreateTranslation(new Vector3(halfWidth - 1 / 2, halfHeight - 1 / 2, 0));
+            var scaling = Matrix4.CreateScale(new Vector3(halfWidth, halfHeight, 1));
+
+            return translation * scaling;
         }
     }
 }
