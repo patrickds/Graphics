@@ -17,8 +17,9 @@ namespace Graphics.Core
             this.Faces = faces;
         }
 
+        public Vector4 Position { get; set; }
         public IEnumerable<Face> Faces { get; set; }
-        
+
         public void Transform(Matrix4 matrix)
         {
             foreach (var face in this.Faces)

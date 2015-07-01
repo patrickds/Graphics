@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Graphics.UI.MouseControllers
 {
-    public class MouseContollerProvider
+    internal enum eMouseAction
     {
+        Selection = 1,
+        Pan = 2
     }
 }

@@ -6,7 +6,10 @@
              xmlns:models="clr-namespace:Graphics.Models;assembly=Graphics.Models"
              xmlns:local="clr-namespace:Graphics.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-    </Grid>
+             d:DesignHeight="366" d:DesignWidth="445" 
+             Background="White"
+             RenderTransformOrigin=".5, .5">
+    <UserControl.RenderTransform>
+        <ScaleTransform ScaleX="1" ScaleY="-1"/>
+    </UserControl.RenderTransform>
 </UserControl>

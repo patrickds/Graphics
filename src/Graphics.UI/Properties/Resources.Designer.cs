@@ -61,12 +61,12 @@ namespace Graphics.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap cursor {
+        internal static byte[] pan {
             get {
-                object obj = ResourceManager.GetObject("cursor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("pan", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

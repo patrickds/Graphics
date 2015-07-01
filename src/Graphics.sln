@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Playgroung", "Graphics.Playground\Graphics.Playgroung.csproj", "{17090B19-D6C6-4D63-8AD7-806C2ACCC9E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Playground", "Graphics.Playground\Graphics.Playground.csproj", "{17090B19-D6C6-4D63-8AD7-806C2ACCC9E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics.Math", "Graphics.Math\Graphics.Math.csproj", "{64D5BA12-0EC9-47B2-9FAF-B84CFE21BDDB}"
 EndProject

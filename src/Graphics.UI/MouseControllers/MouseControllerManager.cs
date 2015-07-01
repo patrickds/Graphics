@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Graphics.UI.MouseControllers.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Graphics.UI.MouseControllers
     {
         private MouseControllerManager()
         {
-            this.Current = new PanMouseController();
+            this.Current = MouseControllerProvider.GetMouseControllerByAction(eMouseAction.Selection);
         }
 
         private static MouseControllerManager _instance;
@@ -23,7 +24,7 @@ namespace Graphics.UI.MouseControllers
             }
         }
 
-        public MouseController Current { get; set; }
+        public MouseController<Viewport> Current { get; set; }
 
         internal void OnMouseUp(Viewport sender, MouseButtonEventArgs e)
         {

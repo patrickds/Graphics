@@ -35,7 +35,6 @@ namespace Graphics.Core
 
                 current = transformation * current;
                 next = transformation * next;
-
                 yield return new Line(new Point(current.X, current.Y), new Point(next.X, next.Y));
             }
         }
