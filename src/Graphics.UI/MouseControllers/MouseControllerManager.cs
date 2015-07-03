@@ -24,9 +24,9 @@ namespace Graphics.UI.MouseControllers
             }
         }
 
-        public MouseController<Viewport> Current { get; set; }
+        public MouseController<ViewportControl> Current { get; set; }
 
-        internal void OnMouseUp(Viewport sender, MouseButtonEventArgs e)
+        internal void OnMouseUp(ViewportControl sender, MouseButtonEventArgs e)
         {
             if (this.Current.CanExecuteMouseUp(sender, e))
             {
@@ -34,7 +34,7 @@ namespace Graphics.UI.MouseControllers
             }
         }
 
-        internal void OnMouseDown(Viewport sender, MouseButtonEventArgs e)
+        internal void OnMouseDown(ViewportControl sender, MouseButtonEventArgs e)
         {
             if (this.Current.CanExecuteMouseDown(sender, e))
             {
@@ -42,7 +42,7 @@ namespace Graphics.UI.MouseControllers
             }
         }
 
-        internal void OnMouseMove(Viewport sender, MouseEventArgs e)
+        internal void OnMouseMove(ViewportControl sender, MouseEventArgs e)
         {
             if (this.Current.CanExecuteMouseMove(sender, e))
             {
@@ -50,7 +50,7 @@ namespace Graphics.UI.MouseControllers
             }
         }
 
-        internal void OnMouseWheel(Viewport sender, MouseWheelEventArgs e)
+        internal void OnMouseWheel(ViewportControl sender, MouseWheelEventArgs e)
         {
             if(this.Current.CanExecuteMouseWheel(sender, e))
             {

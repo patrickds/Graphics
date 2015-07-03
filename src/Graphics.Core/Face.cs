@@ -52,7 +52,7 @@ namespace Graphics.Core
             this.Points = points;
         }
 
-        internal void OnRender(DrawingContext drawingContext, Matrix4 transformation)
+        public void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
             foreach (var line in this.BuildLines(transformation))
             {

@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:graphics.ui="clr-namespace:Graphics.UI;assembly=Graphics.UI"
+        xmlns:graphics="clr-namespace:Graphics.UI;assembly=Graphics.UI"
         mc:Ignorable="d" x:Class="Graphics.MainWindow"
         Title="MainWindow" Height="600" Width="600">
     <Grid>
-        <graphics.ui:Viewport/>
+        <graphics:Viewport/>
     </Grid>
 </Window>

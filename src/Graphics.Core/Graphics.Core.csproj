@@ -85,6 +85,7 @@
     <Compile Include="Environment.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="Origin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

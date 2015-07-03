@@ -55,6 +55,7 @@
     <Compile Include="Viewport.xaml.cs">
       <DependentUpon>Viewport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewportControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Graphics.Core\Graphics.Core.csproj">

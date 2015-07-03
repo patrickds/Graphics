@@ -10,30 +10,20 @@ using System.Windows.Media;
 
 namespace Graphics.Core
 {
-    public class Entity
+    public abstract class Entity
     {
-        public Entity(IEnumerable<Face> faces)
+        public Entity()
         {
-            this.Faces = faces;
         }
 
         public Vector4 Position { get; set; }
-        public IEnumerable<Face> Faces { get; set; }
 
-        public void Transform(Matrix4 matrix)
+        public virtual void Transform(Matrix4 matrix)
         {
-            foreach (var face in this.Faces)
-            {
-                face.Transform(matrix);
-            }
         }
 
-        public void OnRender(DrawingContext drawingContext, Matrix4 transformation)
+        public virtual void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
-            foreach (var face in this.Faces)
-            {
-                face.OnRender(drawingContext, transformation);
-            }
         }
     }
 }

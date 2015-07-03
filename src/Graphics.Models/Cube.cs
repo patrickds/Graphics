@@ -4,14 +4,28 @@ using System.Collections.Generic;
 
 namespace Graphics.Models
 {
-    public class Cube : Entity
+    public class Cube : Geometry
     {
         private Cube(IEnumerable<Face> faces)
             : base(faces)
         {
         }
 
-        public static Cube Default = Create(80);
+        private Cube(IEnumerable<Face> faces, Vector4 position)
+            : this(faces)
+        {
+            this.Position = position;
+        }
+
+        public static Cube Default = Create(0.2);
+
+        public static Cube Create(double scaleFactor, Vector4 position)
+        {
+            var cube = Create(scaleFactor);
+            cube.Position = position;
+
+            return cube;
+        }
 
         public static Cube Create(double scaleFactor)
         {

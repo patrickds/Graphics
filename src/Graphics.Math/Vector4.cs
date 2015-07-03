@@ -35,6 +35,11 @@ namespace Graphics.Math
         private readonly double _magnitude;
         public double Magnitude { get { return _magnitude; } }
 
+        public Vector3 ToVector3()
+        {
+            return new Vector3(_x, _y, _z);
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is Vector4))

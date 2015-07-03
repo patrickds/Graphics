@@ -16,6 +16,7 @@ namespace Graphics.Core
         public Environment()
         {
             _entities = new List<Entity>();
+            this.AddDefaultEntities();
         }
 
         #endregion
@@ -24,25 +25,21 @@ namespace Graphics.Core
 
         private List<Entity> _entities;
 
-        public double Width
-        {
-            get;
-            set;
-        }
+        public double Width { get; set; }
         public double Height { get; set; }
-
-        private Vector4 _origin = new Vector4(0, 0, 0, 1);
 
         #endregion
 
         #region PrivateMethods
 
-        private Matrix4 GetTransformation()
+        private Matrix4 GetScreenTransformation()
         {
             var halfWidth = this.Width / 2;
             var halfHeight = this.Height / 2;
+            var centerXForPixels = halfWidth - 1 / 2;
+            var centerYForPixels = halfHeight - 1 / 2;
 
-            var translate = new Vector3(halfWidth - 1 / 2, halfHeight - 1 / 2, 0);
+            var translate = new Vector3(centerXForPixels, centerYForPixels, 0);
             var scale = new Vector3(halfWidth, halfHeight, 1);
 
             var translation = Matrix4.CreateTranslation(translate);
@@ -51,24 +48,9 @@ namespace Graphics.Core
             return translation * scaling;
         }
 
-        private void Draw(DrawingContext drawingContext, Matrix4 transformation)
+        private void AddDefaultEntities()
         {
-            this.DrawOrigin(drawingContext, transformation);
-        }
-
-        private void DrawOrigin(DrawingContext drawingContext, Matrix4 transformation)
-        {
-            var origin = transformation * _origin;
-
-            var bottomLeft = transformation * new Vector4(-0.2, -0.2, -0.2, 1);
-            var bottomRight = transformation * new Vector4(0.2, -0.2, -0.2, 1);
-            var top = transformation * new Vector4(0, 0.2, -0.2, 1);
-
-            drawingContext.DrawEllipse(Brushes.Black, new Pen(Brushes.Black, 2), new Point(origin.X, origin.Y), 1, 1);
-
-            drawingContext.DrawLine(new Pen(Brushes.Black, 2), new Point(bottomLeft.X, bottomLeft.Y), new Point(top.X, top.Y));
-            drawingContext.DrawLine(new Pen(Brushes.Black, 2), new Point(top.X, top.Y), new Point(bottomRight.X, bottomRight.Y));
-            drawingContext.DrawLine(new Pen(Brushes.Black, 2), new Point(bottomLeft.X, bottomLeft.Y), new Point(bottomRight.X, bottomRight.Y));
+            _entities.Add(new Origin());
         }
 
         #endregion
@@ -95,8 +77,7 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext)
         {
-            var transformation = this.GetTransformation();
-            this.Draw(drawingContext, transformation);
+            var transformation = this.GetScreenTransformation();
 
             foreach (var entity in _entities)
             {
