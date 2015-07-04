@@ -32,6 +32,13 @@ namespace Graphics.Math
         private readonly double _magnitude;
         public double Magnitude { get { return _magnitude; } }
 
+        public Vector3 Normalize()
+        {
+            return new Vector3(_x / _magnitude,
+                               _y / _magnitude,
+                               _z / _magnitude);
+        }
+
         public static Vector3 operator +(Vector3 v1, Vector3 v2)
         {
             double x = v1.X + v2.X;
@@ -57,6 +64,11 @@ namespace Graphics.Math
             double z = v1.Z * v2.Z;
 
             return new Vector3(x, y, z);
+        }
+
+        public static Vector3 operator -(Vector3 v)
+        {
+            return new Vector3(-v.X, -v.Y, -v.Z);
         }
     }
 }

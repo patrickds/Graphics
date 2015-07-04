@@ -35,6 +35,14 @@ namespace Graphics.Math
         private readonly double _magnitude;
         public double Magnitude { get { return _magnitude; } }
 
+        public Vector4 Normalize()
+        {
+            return new Vector4(_x / _magnitude,
+                               _y / _magnitude,
+                               _z / _magnitude,
+                               _w);
+        }
+
         public Vector3 ToVector3()
         {
             return new Vector3(_x, _y, _z);
@@ -69,13 +77,13 @@ namespace Graphics.Math
                                  MathHelper.Round(_z), ", ", 
                                  MathHelper.Round(_w));
         }
-        //TODO: check W behaviour in operators..
+
         public static Vector4 operator +(Vector4 v1, Vector4 v2)
         {
             double x = v1.X + v2.X;
             double y = v1.Y + v2.Y;
             double z = v1.Z + v2.Z;
-            double w = v1.W * v2.W;
+            double w = v1.W;
 
             return new Vector4(x, y, z, w);
         }
@@ -85,7 +93,7 @@ namespace Graphics.Math
             double x = v1.X - v2.X;
             double y = v1.Y - v2.Y;
             double z = v1.Z - v2.Z;
-            double w = v1.W * v2.W;
+            double w = v1.W;
 
             return new Vector4(x, y, z, w);
         }
@@ -95,9 +103,17 @@ namespace Graphics.Math
             double x = v1.X * v2.X;
             double y = v1.Y * v2.Y;
             double z = v1.Z * v2.Z;
-            double w = v1.W * v2.W;
+            double w = v1.W;
 
             return new Vector4(x, y, z, w);
+        }
+
+        public static Vector4 operator *(Vector4 v, double factor)
+        {
+            return new Vector4(v.X * factor,
+                               v.Y * factor,
+                               v.Z * factor,
+                               v.W);
         }
     }
 }
