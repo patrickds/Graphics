@@ -1,6 +1,7 @@
 ﻿using Graphics.Core;
 using Graphics.Math;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace Graphics.Models
 {
@@ -77,9 +78,13 @@ namespace Graphics.Models
                             new Vector4(1, 1, -1, 1),
                         });
 
+            var cube2 = new Cube(new List<Face> { front, back });
+            cube2.Transform(Matrix4.CreateScale(scaleFactor));
+            return cube2;
+
             var cube = new Cube(new List<Face>()
                     {
-                        front, back, top, bottom, left, right
+                        bottom, left, front, top, right, back
                     });
 
             cube.Transform(Matrix4.CreateScale(scaleFactor));

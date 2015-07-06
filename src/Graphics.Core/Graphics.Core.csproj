@@ -86,7 +86,9 @@
     <Compile Include="Face.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Origin.cs" />
+    <Compile Include="Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewFrustrum.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Graphics.Math\Graphics.Math.csproj">

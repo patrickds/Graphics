@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -19,6 +20,7 @@ namespace Graphics.UI
         public ViewportControl()
         {
             _environment = new Environment();
+            this.SizeChanged += ViewportControl_SizeChanged;
             this.CreateTestEntities();
         }
 
@@ -34,18 +36,11 @@ namespace Graphics.UI
 
         private void CreateTestEntities()
         {
-            var cube = Cube.Create(0.2, new Vector4(0, 0, 0, 1));
-
+            var cube = Cube.Create(0.2, Vector4.Zero);
             _environment.Add(cube);
             this.InvalidateVisual();
         }
-
-        private void SetEnvironmentSize()
-        {
-            _environment.Width = this.RenderSize.Width;
-            _environment.Height = this.RenderSize.Height;
-        }
-
+        
         private void Render(DrawingContext drawingContext)
         {
             _environment.OnRender(drawingContext);
@@ -83,7 +78,6 @@ namespace Graphics.UI
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            this.SetEnvironmentSize();
             this.Render(drawingContext);
         }
 
@@ -95,6 +89,15 @@ namespace Graphics.UI
         {
             _environment.Transform(transformation);
             this.InvalidateVisual();
+        }
+
+        #endregion
+
+        #region Signed Events Methods
+
+        private void ViewportControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            _environment.SetSize(e.NewSize.Width, e.NewSize.Height);
         }
 
         #endregion

@@ -16,7 +16,7 @@ namespace Graphics.Core
         public Environment()
         {
             _entities = new List<Entity>();
-            _camera = new Camera(1, 10000, 800d/600d);
+            _camera = new Camera(1, 10, _width / _height);
             this.AddDefaultEntities();
         }
 
@@ -26,15 +26,16 @@ namespace Graphics.Core
 
         private List<Entity> _entities;
         private Camera _camera;
-
-        public double Width { get; set; }
-        public double Height { get; set; }
-
+        private double _width = 800d;
+        private double _height = 600d;
+       
         #endregion
 
         #region Private Methods
 
-        //public void Update()
+        #region Transformations
+
+        //public void OnRenderTransform()
         //{
         //    _camera.Update();
         //    _wcs.Update();
@@ -105,21 +106,21 @@ namespace Graphics.Core
         //    this.AdjustWCSToShowInBottomLeftSideOfScreen();
         //}
 
-        private Matrix4 GetTransformation()
+        private Matrix4 GetRenderTransformation()
         {
-            return 
-                this.GetScreenTransformation() * 
-                this.GetOrthographicViewVolumeTransformation() * 
-                this.GetPerspectiveTransformation() * 
+            return
+                this.GetScreenTransformation() *
+                this.GetOrthographicViewVolumeTransformation() *
+                this.GetPerspectiveTransformation() *
                 this.GetWorldSpaceToCameraSpace();
         }
 
         private Matrix4 GetScreenTransformation()
         {
-            var halfWidth = this.Width / 2;
-            var halfHeight = this.Height / 2;
+            var halfWidth = _width / 2d;
+            var halfHeight = _height / 2d;
 
-            var translate = new Vector3(halfWidth - 0.5, halfHeight - 0.5, 0);
+            var translate = new Vector3(halfWidth - 0.5d, halfHeight - 0.5d, 0);
             var scale = new Vector3(halfWidth, halfHeight, 1);
 
             return Matrix4.CreateTranslation(translate) * Matrix4.CreateScale(scale);
@@ -127,41 +128,36 @@ namespace Graphics.Core
 
         private Matrix4 GetOrthographicViewVolumeTransformation()
         {
-            //view volume params
-            double l = _camera.LeftBottomNear.X;
-            double r = _camera.RightTopFar.X;
-            double b = _camera.LeftBottomNear.Y;
-            double t = _camera.RightTopFar.Y;
-            double n = _camera.LeftBottomNear.Z;
-            double f = _camera.RightTopFar.Z;
+            double left = _camera.LeftBottomNear.X;
+            double right = _camera.RightTopFar.X;
+            double bottom = _camera.LeftBottomNear.Y;
+            double top = _camera.RightTopFar.Y;
+            double near = _camera.LeftBottomNear.Z;
+            double far = _camera.RightTopFar.Z;
 
-            var translateX = -((l + r) / 2);
-            var translateY = -((b + t) / 2);
-            var translateZ = -((n + f) / 2);
+            var translateX = -(left + right) / 2d;
+            var translateY = -(bottom + top) / 2d;
+            var translateZ = -(near + far) / 2d;
 
-            var scaleX = 2 / r - l;
-            var scaleY = 2 / t - b;
-            var scaleZ = 2 / n - f;
+            var scaleX = 2d / (right - left);
+            var scaleY = 2d / (top - bottom);
+            var scaleZ = 2d / (near - far);
 
             var translation = Matrix4.CreateTranslation(new Vector3(translateX, translateY, translateZ));
             var scaling = Matrix4.CreateScale(new Vector3(scaleX, scaleY, scaleZ));
 
-            //parallel projection transformation:
-            //map world coordinates into a canonical view volume (ranging from -1 to 1)
-            Matrix4 transformation = new Matrix4(
-                2.0d / (r - l), 0, 0, -((r + l) / (r - l)),
-                0, 2.0d / (t - b), 0, -((t + b) / (t - b)),
-                0, 0, 2.0d / (n - f), -((n + f) / (n - f)),
-                0, 0, 0, 1);
+            return translation * scaling;
 
-            //should be optimized caus of fixed values
-            return transformation;
+            //Optimized version caus of constant values
+            //return new Matrix4(
+            //    scaleX, 0, 0, -((r + l) / (r - l)),
+            //    0, scaleY, 0, -((t + b) / (t - b)),
+            //    0, 0, scaleZ, -((n + f) / (n - f)),
+            //    0, 0, 0, 1);
         }
 
-        //Implement this shit
         private Matrix4 GetWorldSpaceToCameraSpace()
         {
-            //camera coordinate system
             Vector4 u = _camera.Right;
             Vector4 v = _camera.Up;
             Vector4 n = _camera.Gaze;
@@ -170,7 +166,7 @@ namespace Graphics.Core
                 u.X, u.Y, u.Z, 0,
                 v.X, v.Y, v.Z, 0,
                 n.X, n.Y, n.Z, 0,
-                0,   0,   0,  1);
+                0, 0, 0, 1);
 
             var cameraPosition = _camera.Position.ToVector3();
             var translation = Matrix4.CreateTranslation(-cameraPosition);
@@ -183,18 +179,23 @@ namespace Graphics.Core
             var near = _camera.Near;
             var far = _camera.Far;
 
-            var scaling = Matrix4.CreateScale(new Vector3(near, near, near+far));
+            var scaling = Matrix4.CreateScale(new Vector3(near, near, near + far));
             var translation = Matrix4.CreateTranslation(new Vector3(0, 0, -far * near));
 
-            Matrix4 t2 = new Matrix4(
+            return new Matrix4(
                 near, 0, 0, 0,
                 0, near, 0, 0,
                 0, 0, near + far, -far * near,
                 0, 0, 1, 0);
 
-            var t22 = translation * scaling;
+            //return translation * scaling;
+        }
 
-            return t2;
+        #endregion
+
+        private void UpdateAspectRatio()
+        {
+            _camera.UpdateAspectRatio(_width / _height);
         }
 
         private void AddDefaultEntities()
@@ -216,6 +217,13 @@ namespace Graphics.Core
             _entities.Remove(entity);
         }
 
+        public void SetSize(double width, double height)
+        {
+            _width = width;
+            _height = height;
+            this.UpdateAspectRatio();
+        }
+
         public void Transform(Matrix4 matrix)
         {
             foreach (var entity in _entities)
@@ -226,7 +234,7 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext)
         {
-            var transformation = this.GetTransformation();
+            var transformation = this.GetRenderTransformation();
 
             foreach (var entity in _entities)
             {

@@ -17,6 +17,7 @@ namespace Graphics.Math
         public static Vector4 I = new Vector4(1, 0, 0, 1);
         public static Vector4 J = new Vector4(0, 1, 0, 1);
         public static Vector4 K = new Vector4(0, 0, 1, 1);
+        public static Vector4 Zero = new Vector4(0, 0, 0, 1);
 
         private readonly double _x;
         public double X { get { return _x; } }
@@ -63,10 +64,10 @@ namespace Graphics.Math
 
         public override int GetHashCode()
         {
-            return (int)(_x * 17 +
-                         _y * 17 +
-                         _z * 17 +
-                         _w * 17) +
+            return (int)(_x * 17d +
+                         _y * 17d +
+                         _z * 17d +
+                         _w * 17d) +
                          base.GetHashCode();
         }
 

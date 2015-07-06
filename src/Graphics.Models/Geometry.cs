@@ -28,8 +28,7 @@ namespace Graphics.Models
 
         public override void OnRender(DrawingContext drawingContext, Matrix4 renderTransformation)
         {
-            var toWorld = Matrix4.CreateTranslation(Position.ToVector3());
-            var transformation = renderTransformation * toWorld;
+            var transformation = renderTransformation;
 
             foreach (var face in this.Faces)
             {
