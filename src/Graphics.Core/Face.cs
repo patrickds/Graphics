@@ -54,10 +54,16 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
-            foreach (var line in this.BuildLines(transformation))
+            var segments = new List<PathSegment>();
+            var lines = this.BuildLines(transformation);
+            foreach (var line in lines)
             {
+                segments.Add(new LineSegment(line.End, true));
                 drawingContext.DrawLine(_pen, line.Start, line.End);
             }
+
+            var pathFigure = new PathFigure(lines.First().Start, segments, true);
+            //drawingContext.DrawGeometry(Brushes.Red, _pen, new PathGeometry(new List<PathFigure>() { pathFigure}));
         }
     }
 }

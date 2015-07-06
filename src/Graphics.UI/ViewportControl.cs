@@ -34,7 +34,9 @@ namespace Graphics.UI
 
         private void CreateTestEntities()
         {
-            _environment.Add(Cube.Create(0.2, new Vector4(0.2, 0.2, 0, 1)));
+            var cube = Cube.Create(0.2, new Vector4(0, 0, 0, 1));
+
+            _environment.Add(cube);
             this.InvalidateVisual();
         }
 
