@@ -18,6 +18,7 @@ namespace Graphics.Core
 
         public override void OnRender(DrawingContext drawingContext, Matrix4 transformation)
         {
+            //Use this to check affine transformations
             var position = transformation * this.Position;
             drawingContext.DrawEllipse(Brushes.Black, new Pen(), new Point(position.X, position.Y), 2, 2);
         }

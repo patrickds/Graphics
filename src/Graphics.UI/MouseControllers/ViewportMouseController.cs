@@ -28,8 +28,8 @@ namespace Graphics.UI.MouseControllers
         {
             var mousePosition = e.GetPosition(sender);
 
-            var dx = (mousePosition.X - _panStart.X) / (sender.RenderSize.Width / 2 );
-            var dy = (mousePosition.Y - _panStart.Y) / (sender.RenderSize.Height / 2);
+            var dx = mousePosition.X - _panStart.X;
+            var dy = mousePosition.Y - _panStart.Y;
 
             _panStart = mousePosition;
 

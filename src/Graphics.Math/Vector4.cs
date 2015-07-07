@@ -44,6 +44,15 @@ namespace Graphics.Math
                                _w);
         }
 
+        public Vector4 Cross(Vector4 v2)
+        {
+            var x = this.Y * v2.Z - this.Z * v2.Y;
+            var y = this.Z * v2.X - this.X * v2.Z;
+            var z = this.X * v2.Y - this.Y * v2.X;
+
+            return new Vector4(x, y, z, 1);
+        }
+
         public Vector3 ToVector3()
         {
             return new Vector3(_x, _y, _z);

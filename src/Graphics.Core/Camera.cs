@@ -11,13 +11,16 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(0, 0, 2, 1);
+            this.Position = new Vector4(0, 0, 50, 1);
             this.Target = Vector4.Zero;
             this.Gaze = (this.Target - this.Position).Normalize();
 
             //calculate up and right based on gaze
-            this.Up = Vector4.J;
-            this.Right = Vector4.I;
+            //this.Up = Vector4.J;
+            //this.Right = Vector4.I;
+
+            this.Right = this.Gaze.Cross(Vector4.J).Normalize();
+            this.Up = this.Right.Cross(this.Gaze).Normalize();
             
             // 110 degrees, close to human FoV
             this.FoV = 1.919862d;
@@ -51,8 +54,8 @@ namespace Graphics.Core
             double halfWidth = width / 2d;
             double halfHeight = height / 2d;
 
-            //this.LeftBottomNear = new Vector3(-halfWidth, -halfHeight, this.Near);
-            //this.RightTopFar = new Vector3(halfWidth, halfHeight, -this.Far);
+            this.LeftBottomNear = new Vector3(-halfWidth, -halfHeight, this.Near);
+            this.RightTopFar = new Vector3(halfWidth, halfHeight, -this.Far);
         }
 
         private void CalculateNearPlane()
@@ -125,6 +128,9 @@ namespace Graphics.Core
             var FarTopRight = Cfar + (this.Up * (Hfar / 2d)) + (this.Right * (Wfar / 2d));
             var FarBottomLeft = Cfar - (this.Up * (Hfar / 2d)) - (this.Right * (Wfar / 2d));
             var FarBottomRight = Cfar - (this.Up * (Hfar / 2d)) + (this.Right * (Wfar / 2d));
+
+            this.LeftBottomNear = NearBottomLeft.ToVector3();
+            this.RightTopFar = FarTopRight.ToVector3();
         }
         
         public void UpdateAspectRatio(double aspectRatio)

@@ -16,7 +16,7 @@ namespace Graphics.Core
         public Environment()
         {
             _entities = new List<Entity>();
-            _camera = new Camera(1, 10, _width / _height);
+            _camera = new Camera(1, 100, _width / _height);
             this.AddDefaultEntities();
         }
 
@@ -35,76 +35,65 @@ namespace Graphics.Core
 
         #region Transformations
 
-        //public void OnRenderTransform()
-        //{
-        //    _camera.Update();
-        //    _wcs.Update();
+        public Matrix4 GetRenderTransformation2()
+        {
+            //camera coordinate system
+            var u = _camera.Right;
+            var v = _camera.Up;
+            var n = _camera.Gaze;
 
-        //    foreach (var entity in _entities)
-        //        entity.Update();
+            //view volume params
+            double left = _camera.LeftBottomNear.X;
+            double right = _camera.RightTopFar.X;
+            double bottom = _camera.LeftBottomNear.Y;
+            double top = _camera.RightTopFar.Y;
+            double near = _camera.LeftBottomNear.Z;
+            double far = 2;
 
-        //    //camera coordinate system
-        //    Vector3 u = _camera.Right;
-        //    Vector3 v = _camera.Up;
-        //    Vector3 n = _camera.Direction;
+            //camera translation transformation: 
+            //map world origin to camera origin
+            Matrix4 t0 = new Matrix4(
+                1, 0, 0, -_camera.Position.X,
+                0, 1, 0, -_camera.Position.Y,
+                0, 0, 1, -_camera.Position.Z,
+                0, 0, 0, 1);
 
-        //    //view volume params
-        //    double left = _camera.LeftBottomNear.X;
-        //    double right = _camera.RightTopFar.X;
-        //    double bottom = _camera.LeftBottomNear.Y;
-        //    double top = _camera.RightTopFar.Y;
-        //    double near = _camera.LeftBottomNear.Z;
-        //    double far = _camera.RightTopFar.Z;
+            //camera rotation transformation: 
+            //rotate world to align with camera coordinate system (coordinates will now be in camera vector space)
+            Matrix4 t1 = new Matrix4(
+                u.X, u.Y, u.Z, 0,
+                v.X, v.Y, v.Z, 0,
+                n.X, n.Y, n.Z, 0,
+                0, 0, 0, 1);
 
-        //    //camera translation transformation: 
-        //    //map world origin to camera origin
-        //    Matrix4 t0 = new Matrix4(
-        //        1, 0, 0, -_camera.Position.X,
-        //        0, 1, 0, -_camera.Position.Y,
-        //        0, 0, 1, -_camera.Position.Z,
-        //        0, 0, 0, 1);
+            //perspective transformation:
+            //distort world in a way it makes closer things bigger and distant smaller
+            Matrix4 t2 = new Matrix4(
+                near, 0, 0, 0,
+                0, near, 0, 0,
+                0, 0, near + far, -far * near,
+                0, 0, 1, 0);
 
-        //    //camera rotation transformation: 
-        //    //rotate world to align with camera coordinate system (coordinates will now be in camera vector space)
-        //    Matrix4 t1 = new Matrix4(
-        //        u.X, u.Y, u.Z, 0,
-        //        v.X, v.Y, v.Z, 0,
-        //        n.X, n.Y, n.Z, 0,
-        //        0, 0, 0, 1);
+            //parallel projection transformation:
+            //map world coordinates into a canonical view volume (ranging from -1 to 1)
+            Matrix4 t3 = new Matrix4(
+                2.0d / (right - left), 0, 0, -((right + left) / (right - left)),
+                0, 2.0d / (top - bottom), 0, -((top + bottom) / (top - bottom)),
+                0, 0, 2.0d / (near - far), -((near + far) / (near - far)),
+                0, 0, 0, 1);
 
-        //    //perspective transformation:
-        //    //distort world in a way it makes closer things bigger and distant smaller
-        //    Matrix4 t2 = new Matrix4(
-        //        near, 0, 0, 0,
-        //        0, near, 0, 0,
-        //        0, 0, near + far, -far * near,
-        //        0, 0, 1, 0);
+            //viewport mapping transformation:
+            //convert the canonical coordinates to the viewport coordinates, so it scales our view to fit the viewport
+            Matrix4 t4 = new Matrix4(
+                _width / 2.0d, 0, 0, (_width / 2.0d) - 0.5d,
+                0, _height / 2.0d, 0, (_height / 2.0d) - 0.5d,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
 
-        //    //parallel projection transformation:
-        //    //map world coordinates into a canonical view volume (ranging from -1 to 1)
-        //    Matrix4 t3 = new Matrix4(
-        //        2.0d / (right - left), 0, 0, -((right + left) / (right - left)),
-        //        0, 2.0d / (top - bottom), 0, -((top + bottom) / (top - bottom)),
-        //        0, 0, 2.0d / (near - far), -((near + far) / (near - far)),
-        //        0, 0, 0, 1);
+            Matrix4 projectionTransformMatrix = t4 * t3 * t2 * t1 * t0;
 
-        //    //viewport mapping transformation:
-        //    //convert the canonical coordinates to the viewport coordinates, so it scales our view to fit the viewport
-        //    Matrix4 t4 = new Matrix4(
-        //        _width / 2.0d, 0, 0, (_width / 2.0d) - 0.5d,
-        //        0, _height / 2.0d, 0, (_height / 2.0d) - 0.5d,
-        //        0, 0, 1, 0,
-        //        0, 0, 0, 1);
-
-        //    Matrix4 projectionTransformMatrix = t4 * t3 * t2 * t1 * t0;
-
-        //    foreach (var entity in _entities)
-        //        entity.ApplyTransform(projectionTransformMatrix);
-
-        //    _wcs.ApplyTransform(projectionTransformMatrix);
-
-        //    this.AdjustWCSToShowInBottomLeftSideOfScreen();
-        //}
+            return projectionTransformMatrix;
+        }
 
         private Matrix4 GetRenderTransformation()
         {
@@ -234,7 +223,7 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext)
         {
-            var transformation = this.GetRenderTransformation();
+            var transformation = this.GetRenderTransformation2());
 
             foreach (var entity in _entities)
             {

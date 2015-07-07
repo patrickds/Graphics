@@ -46,7 +46,7 @@ namespace Graphics.Core
 
             foreach (var point in this.Points)
             {
-                points.Add(matrix.Transform(point));
+                points.Add(matrix * point);
             }
 
             this.Points = points;

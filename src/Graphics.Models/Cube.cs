@@ -78,10 +78,6 @@ namespace Graphics.Models
                             new Vector4(1, 1, -1, 1),
                         });
 
-            var cube2 = new Cube(new List<Face> { front, back });
-            cube2.Transform(Matrix4.CreateScale(scaleFactor));
-            return cube2;
-
             var cube = new Cube(new List<Face>()
                     {
                         bottom, left, front, top, right, back

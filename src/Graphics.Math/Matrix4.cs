@@ -46,12 +46,7 @@ namespace Graphics.Math
                                    0, 0, 0, 1);
             }
         }
-
-        public Vector4 Transform(Vector4 vector)
-        {
-            return this * vector;
-        }
-
+        
         public static Matrix4 CreateRotation(Vector3 axis, double radians)
         {
             double x = axis.X;
@@ -196,7 +191,10 @@ namespace Graphics.Math
                     m._m43 * v.Z +
                     m._m44 * v.W;
 
-            return new Vector4(x, y, z, w);
+
+            var affineFactor = 1 / 2;
+
+            return new Vector4(x / w, y / w, z / w, w);
         }
 
         public static Matrix4 operator *(Matrix4 m1, Matrix4 m2)
