@@ -37,12 +37,10 @@ namespace Graphics.Core
 
         public Matrix4 GetRenderTransformation2()
         {
-            //camera coordinate system
             var u = _camera.Right;
             var v = _camera.Up;
             var n = _camera.Gaze;
 
-            //view volume params
             double left = _camera.LeftBottomNear.X;
             double right = _camera.RightTopFar.X;
             double bottom = _camera.LeftBottomNear.Y;
@@ -50,47 +48,37 @@ namespace Graphics.Core
             double near = _camera.LeftBottomNear.Z;
             double far = 2;
 
-            //camera translation transformation: 
-            //map world origin to camera origin
-            Matrix4 t0 = new Matrix4(
+            Matrix4 cameraTranslation = new Matrix4(
                 1, 0, 0, -_camera.Position.X,
                 0, 1, 0, -_camera.Position.Y,
                 0, 0, 1, -_camera.Position.Z,
                 0, 0, 0, 1);
 
-            //camera rotation transformation: 
-            //rotate world to align with camera coordinate system (coordinates will now be in camera vector space)
-            Matrix4 t1 = new Matrix4(
+            Matrix4 cameraRotation = new Matrix4(
                 u.X, u.Y, u.Z, 0,
                 v.X, v.Y, v.Z, 0,
                 n.X, n.Y, n.Z, 0,
                 0, 0, 0, 1);
 
-            //perspective transformation:
-            //distort world in a way it makes closer things bigger and distant smaller
-            Matrix4 t2 = new Matrix4(
+            Matrix4 perspectiveProjection = new Matrix4(
                 near, 0, 0, 0,
                 0, near, 0, 0,
                 0, 0, near + far, -far * near,
                 0, 0, 1, 0);
 
-            //parallel projection transformation:
-            //map world coordinates into a canonical view volume (ranging from -1 to 1)
-            Matrix4 t3 = new Matrix4(
+            Matrix4 orthogonalProjection = new Matrix4(
                 2.0d / (right - left), 0, 0, -((right + left) / (right - left)),
                 0, 2.0d / (top - bottom), 0, -((top + bottom) / (top - bottom)),
                 0, 0, 2.0d / (near - far), -((near + far) / (near - far)),
                 0, 0, 0, 1);
 
-            //viewport mapping transformation:
-            //convert the canonical coordinates to the viewport coordinates, so it scales our view to fit the viewport
-            Matrix4 t4 = new Matrix4(
+            Matrix4 screenScaling = new Matrix4(
                 _width / 2.0d, 0, 0, (_width / 2.0d) - 0.5d,
                 0, _height / 2.0d, 0, (_height / 2.0d) - 0.5d,
                 0, 0, 1, 0,
                 0, 0, 0, 1);
 
-            Matrix4 projectionTransformMatrix = t4 * t3 * t2 * t1 * t0;
+            Matrix4 projectionTransformMatrix = screenScaling * orthogonalProjection * perspectiveProjection * cameraRotation * cameraTranslation;
 
             return projectionTransformMatrix;
         }
@@ -223,7 +211,7 @@ namespace Graphics.Core
 
         public void OnRender(DrawingContext drawingContext)
         {
-            var transformation = this.GetRenderTransformation2());
+            var transformation = this.GetRenderTransformation();
 
             foreach (var entity in _entities)
             {

@@ -11,7 +11,7 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(0, 0, 50, 1);
+            this.Position = new Vector4(0 , 30, 50, 1);
             this.Target = Vector4.Zero;
             this.Gaze = (this.Target - this.Position).Normalize();
 
@@ -21,7 +21,7 @@ namespace Graphics.Core
 
             this.Right = this.Gaze.Cross(Vector4.J).Normalize();
             this.Up = this.Right.Cross(this.Gaze).Normalize();
-            
+
             // 110 degrees, close to human FoV
             this.FoV = 1.919862d;
 
