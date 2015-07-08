@@ -11,16 +11,8 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(0 , 30, 50, 1);
+            this.Position = new Vector4(0 , 0, 50, 1);
             this.Target = Vector4.Zero;
-            this.Gaze = (this.Target - this.Position).Normalize();
-
-            //calculate up and right based on gaze
-            //this.Up = Vector4.J;
-            //this.Right = Vector4.I;
-
-            this.Right = this.Gaze.Cross(Vector4.J).Normalize();
-            this.Up = this.Right.Cross(this.Gaze).Normalize();
 
             // 110 degrees, close to human FoV
             this.FoV = 1.919862d;
@@ -28,6 +20,16 @@ namespace Graphics.Core
             this.Near = near;
             this.Far = far;
             _aspectRatio = aspectRatio;
+
+            this.CalculateAxis();
+            this.CalculateViewFrustrum();
+        }
+
+        private void CalculateAxis()
+        {
+            this.Gaze = (this.Target - this.Position).Normalize();
+            this.Right = this.Gaze.Cross(Vector4.J).Normalize();
+            this.Up = this.Right.Cross(this.Gaze).Normalize();
 
             this.CalculateViewFrustrum();
         }
@@ -137,6 +139,18 @@ namespace Graphics.Core
         {
             _aspectRatio = aspectRatio;
             this.CalculateViewFrustrum();
+        }
+
+        public override void Transform(Matrix4 matrix)
+        {
+            this.Position = matrix * this.Position;
+            this.CalculateAxis();
+        }
+
+        internal void Tranlate(Matrix4 matrix)
+        {
+            this.Position = matrix * this.Position;
+            this.Target = matrix * this.Target;
         }
     }
 }

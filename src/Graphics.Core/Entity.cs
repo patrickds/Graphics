@@ -20,9 +20,10 @@ namespace Graphics.Core
 
         public virtual void Transform(Matrix4 matrix)
         {
+            this.Position = matrix * Position;
         }
 
-        public virtual void OnRender(DrawingContext drawingContext, Matrix4 transformation)
+        public virtual void OnRender(DrawingContext drawingContext, Matrix4 transformation, Vector4 cameraPosition)
         {
         }
     }

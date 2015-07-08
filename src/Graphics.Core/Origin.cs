@@ -16,7 +16,7 @@ namespace Graphics.Core
             this.Position = new Vector4(0, 0, 0, 1);
         }
 
-        public override void OnRender(DrawingContext drawingContext, Matrix4 transformation)
+        public override void OnRender(DrawingContext drawingContext, Matrix4 transformation, Vector4 cameraPosition)
         {
             //Use this to check affine transformations
             var position = transformation * this.Position;

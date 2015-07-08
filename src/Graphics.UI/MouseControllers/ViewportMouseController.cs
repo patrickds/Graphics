@@ -9,9 +9,8 @@ namespace Graphics.UI.MouseControllers
     {
         private const double ZOOM_IN_FACTOR = 1.2;
         private const double ZOOM_OUT_FACTOR = 0.8;
-        private double _factor = 0.2;
 
-        private Point _panStart;
+        private Point _moveStart;
 
         public ViewportMouseController()
         {
@@ -21,19 +20,41 @@ namespace Graphics.UI.MouseControllers
         private void StartPan(ViewportControl sender, MouseButtonEventArgs e)
         {
             sender.Cursor = CursorProvider.Cursors[eMouseAction.Pan];
-            _panStart = e.GetPosition(sender);
+            _moveStart = e.GetPosition(sender);
         }
 
         private void ExecutePan(ViewportControl sender, MouseEventArgs e)
         {
             var mousePosition = e.GetPosition(sender);
 
-            var dx = mousePosition.X - _panStart.X;
-            var dy = mousePosition.Y - _panStart.Y;
+            var dx = mousePosition.X - _moveStart.X;
+            var dy = mousePosition.Y - _moveStart.Y;
 
-            _panStart = mousePosition;
+            _moveStart = mousePosition;
 
-            sender.Transform(Matrix4.CreateTranslation(new Vector3(dx, dy, 0)));
+            sender.Translate(Matrix4.CreateTranslation(new Vector3(dx, dy, 0)));
+            //sender.Transform(Matrix4.CreateTranslation(new Vector3(dx, dy, 0)));
+        }
+
+        private void StartRotation(ViewportControl sender, MouseButtonEventArgs e)
+        {
+            //TODO: Rotation Cursor
+            sender.Cursor = CursorProvider.Cursors[eMouseAction.Pan];
+            _moveStart = e.GetPosition(sender);
+        }
+
+        private void ExecuteRotation(ViewportControl sender, MouseEventArgs e)
+        {
+            var rotationEnd = e.GetPosition(sender);
+
+            var xRotation = (rotationEnd.X - _moveStart.X) / 100;
+            var yRotation = (rotationEnd.Y - _moveStart.Y) / 100;
+
+            _moveStart = rotationEnd;
+
+            var rotation = Matrix4.CreateYRotation(xRotation);
+
+            sender.Rotate(rotation);
         }
 
         private void ExecuteZoom(ViewportControl sender, MouseWheelEventArgs e)
@@ -58,9 +79,16 @@ namespace Graphics.UI.MouseControllers
 
         internal override void ExecuteMouseDown(ViewportControl sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Middle)
+            if(e.MiddleButton == MouseButtonState.Pressed)
             {
-                StartPan(sender, e);
+                if(e.RightButton == MouseButtonState.Pressed)
+                {
+                    this.StartRotation(sender, e);
+                }
+                else
+                {
+                    this.StartPan(sender, e);
+                }
             }
         }
 
@@ -68,7 +96,14 @@ namespace Graphics.UI.MouseControllers
         {
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                this.ExecutePan(sender, e);
+                if (e.RightButton == MouseButtonState.Pressed)
+                {
+                    this.ExecuteRotation(sender, e);
+                }
+                else
+                {
+                    this.ExecutePan(sender, e);
+                }
             }
         }
 

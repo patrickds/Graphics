@@ -101,5 +101,17 @@ namespace Graphics.UI
         }
 
         #endregion
+
+        internal void Rotate(Matrix4 rotation)
+        {
+            _environment.Rotate(rotation);
+            this.InvalidateVisual();
+        }
+
+        internal void Translate(Matrix4 translation)
+        {
+            _environment.Tranlate(translation);
+            this.InvalidateVisual();
+        }
     }
 }

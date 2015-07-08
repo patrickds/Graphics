@@ -209,16 +209,26 @@ namespace Graphics.Core
             }
         }
 
+        public void Rotate(Matrix4 rotation)
+        {
+            _camera.Transform(rotation);
+        }
+
         public void OnRender(DrawingContext drawingContext)
         {
             var transformation = this.GetRenderTransformation();
 
             foreach (var entity in _entities)
             {
-                entity.OnRender(drawingContext, transformation);
+                entity.OnRender(drawingContext, transformation, _camera.Position);
             }
         }
 
         #endregion
+
+        public void Tranlate(Matrix4 translation)
+        {
+            _camera.Tranlate(translation);
+        }
     }
 }

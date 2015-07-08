@@ -78,6 +78,13 @@ namespace Graphics.Models
                             new Vector4(1, 1, -1, 1),
                         });
 
+            front.Color = Brushes.Blue;
+            back.Color = Brushes.Orange;
+            right.Color = Brushes.Green;
+            left.Color = Brushes.Violet;
+            top.Color = Brushes.Red;
+            bottom.Color = Brushes.DeepSkyBlue;
+
             var cube = new Cube(new List<Face>()
                     {
                         bottom, left, front, top, right, back

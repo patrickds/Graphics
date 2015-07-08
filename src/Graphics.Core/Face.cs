@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -15,11 +16,41 @@ namespace Graphics.Core
             Contract.Requires<ArgumentException>(points.Count() > 2, "Cannot build a face with less than 3 points");
 
             this.Points = points;
+            this.Color = Brushes.SaddleBrown;
         }
 
         private const float POINT_RADIUS = 2;
         private Pen _pen = new Pen(Brushes.Black, 1);
+        public Brush Color { get; set; }
         public IEnumerable<Vector4> Points { get; set; }
+        public Vector4 Center
+        {
+            get
+            {
+                double minX = double.MaxValue, minY = double.MaxValue, minZ = double.MaxValue;
+                double maxX = double.MinValue, maxY = double.MinValue, maxZ = double.MinValue;
+
+                foreach (var point in this.Points)
+                {
+                    if (point.X < minX)
+                        minX = point.X;
+                    else if (point.X > maxX)
+                        maxX = point.X;
+
+                    if (point.Y < minY)
+                        minY = point.Y;
+                    else if (point.Y > maxY)
+                        maxY = point.Y;
+
+                    if (point.Z < minZ)
+                        minZ = point.Z;
+                    else if (point.Z > maxZ)
+                        maxZ = point.Z;
+                }
+
+                return new Vector4(minX + (maxX - minX), minY + (maxY - minY), minZ + (maxZ - minZ), 1);
+            }
+        }
 
         private IEnumerable<Line> BuildLines(Matrix4 transformation)
         {
@@ -37,6 +68,11 @@ namespace Graphics.Core
                 next = transformation * next;
                 yield return new Line(new Point(current.X, current.Y), new Point(next.X, next.Y));
             }
+        }
+
+        public double DistanceRelativeTo(Vector4 position)
+        {
+            return (position - this.Center).Magnitude;
         }
 
         //TODO: fix readonly vectors
@@ -63,7 +99,7 @@ namespace Graphics.Core
             }
 
             var pathFigure = new PathFigure(lines.First().Start, segments, true);
-            //drawingContext.DrawGeometry(Brushes.Red, _pen, new PathGeometry(new List<PathFigure>() { pathFigure}));
+            drawingContext.DrawGeometry(this.Color, _pen, new PathGeometry(new List<PathFigure>() { pathFigure}));
         }
     }
 }

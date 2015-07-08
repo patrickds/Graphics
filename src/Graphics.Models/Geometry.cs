@@ -26,11 +26,11 @@ namespace Graphics.Models
             }
         }
 
-        public override void OnRender(DrawingContext drawingContext, Matrix4 renderTransformation)
+        public override void OnRender(DrawingContext drawingContext, Matrix4 renderTransformation, Vector4 cameraPosition)
         {
             var transformation = renderTransformation;
 
-            foreach (var face in this.Faces)
+            foreach (var face in this.Faces.OrderByDescending(f => f.DistanceRelativeTo(cameraPosition)))
             {
                 face.OnRender(drawingContext, transformation);
             }

@@ -14,6 +14,5 @@ namespace Graphics.Core
 
         public double Near { get; set; }
         public double Far { get; set; }
-
     }
 }
