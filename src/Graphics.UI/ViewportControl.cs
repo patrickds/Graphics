@@ -37,9 +37,29 @@ namespace Graphics.UI
 
         private void CreateTestEntities()
         {
-            var cube = Cube.Create(10, new Vector4(0,5,0,1));
+            var cube = Cube.Create(10, new Vector4(0,10,0,1));
             _environment.Add(cube);
             this.InvalidateVisual();
+
+            var numCubes = 5;
+            double xpos = 0;
+            double zpos = 0;
+
+            foreach (var item in Enumerable.Range(1, numCubes))
+            {
+                foreach (var z in Enumerable.Range(1, numCubes))
+                {
+                    _environment.Add(Cube.Create(10, new Vector4(xpos, 10, zpos, 1)));
+                    _environment.Add(Cube.Create(10, new Vector4(-xpos, 10, zpos, 1)));
+                    _environment.Add(Cube.Create(10, new Vector4(-xpos, 10, -zpos, 1)));
+                    _environment.Add(Cube.Create(10, new Vector4(xpos, 10, -zpos, 1)));
+                    xpos += 30;
+                }
+
+                zpos += 30;
+                xpos = 0;
+            }
+
         }
         
         private void Render(DrawingContext drawingContext)

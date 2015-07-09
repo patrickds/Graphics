@@ -11,7 +11,7 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(0 , 0, -50, 1);
+            this.Position = new Vector4(40 , 70, -200, 1);
             this.Target = Vector4.Zero;
 
             // 110 degrees, close to human FoV
@@ -139,10 +139,16 @@ namespace Graphics.Core
             this.RightTopFar = FarTopRight.ToVector3();
         }
 
+        internal void Zoom(double factor)
+        {
+            var zoom = new Vector4(0, 0, factor, 1);
+            this.Tranlate(zoom);
+        }
+
         internal void Tranlate(Vector4 translation)
         {
-            var xTranslation = this.Right * (translation.X / this.Position.Z);
-            var yTranslation = this.Up * (translation.Y / this.Position.Z);
+            var xTranslation = this.Right * -translation.X;
+            var yTranslation = this.Up * -translation.Y;
             var zTranslation = this.Gaze * translation.Z;
 
             var translationVector = xTranslation + yTranslation + zTranslation;

@@ -178,6 +178,7 @@ namespace Graphics.Core
         private void AddDefaultEntities()
         {
             _entities.Add(new Origin());
+            _entities.Add(new Plane(Vector4.Zero, Vector3.K));
         }
 
         #endregion
@@ -209,9 +210,9 @@ namespace Graphics.Core
             }
         }
 
-        public void Rotate(double xRadians, double yRadians)
+        public void Zoom(double factor)
         {
-            _camera.Rotate(xRadians, yRadians);
+            _camera.Zoom(factor);
         }
 
         public void Tranlate(Vector4 translation)
@@ -219,17 +220,16 @@ namespace Graphics.Core
             _camera.Tranlate(translation);
         }
 
-        public void Zoom(double factor)
+        public void Rotate(double xRadians, double yRadians)
         {
-            var zoom = new Vector4(0, 0, factor, 1);
-            _camera.Tranlate(zoom);
+            _camera.Rotate(xRadians, yRadians);
         }
 
         public void OnRender(DrawingContext drawingContext)
         {
             var transformation = this.GetRenderTransformation();
 
-            foreach (var entity in _entities)
+            foreach (var entity in _entities.OrderByDescending(e => e.DistanceRelativeTo(_camera.Position)))
             {
                 entity.OnRender(drawingContext, transformation, _camera.Position);
             }

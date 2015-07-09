@@ -25,21 +25,6 @@ namespace Graphics.Core
         public string Text { get; set; }
         public IEnumerable<Vector4> Points { get; set; }
 
-        private PathGeometry BuildGeometry(Matrix4 transformation)
-        {
-            var segments = new List<PathSegment>();
-            var start = transformation * this.Points.First();
-
-            for (int i = 1; i < this.Points.Count(); i++)
-            {
-                var transformedPoint = transformation * this.Points.ElementAt(i);
-                segments.Add(new LineSegment(transformedPoint.ToPoint(), true));
-            }
-
-            var pathFigure = new PathFigure(start.ToPoint(), segments, true);
-            return new PathGeometry(new List<PathFigure>() { pathFigure });
-        }
-
         private Vector4 Center()
         {
             double minX = double.MaxValue, minY = double.MaxValue, minZ = double.MaxValue;
@@ -73,6 +58,21 @@ namespace Graphics.Core
         public double DistanceRelativeTo(Vector4 position)
         {
             return (position - this.Center()).Magnitude;
+        }
+
+        private PathGeometry BuildGeometry(Matrix4 transformation)
+        {
+            var segments = new List<PathSegment>();
+            var start = transformation * this.Points.First();
+
+            for (int i = 1; i < this.Points.Count(); i++)
+            {
+                var transformedPoint = transformation * this.Points.ElementAt(i);
+                segments.Add(new LineSegment(transformedPoint.ToPoint(), true));
+            }
+
+            var pathFigure = new PathFigure(start.ToPoint(), segments, true);
+            return new PathGeometry(new List<PathFigure>() { pathFigure });
         }
 
         //TODO: fix readonly vectors

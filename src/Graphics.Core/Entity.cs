@@ -18,6 +18,11 @@ namespace Graphics.Core
 
         public Vector4 Position { get; set; }
 
+        public virtual double DistanceRelativeTo(Vector4 position)
+        {
+            return (position - this.Position).Magnitude;
+        }
+
         public virtual void Transform(Matrix4 matrix)
         {
             this.Position = matrix * Position;

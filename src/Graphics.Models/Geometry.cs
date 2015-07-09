@@ -25,10 +25,9 @@ namespace Graphics.Models
                 face.Transform(matrix);
             }
         }
-
         public override void OnRender(DrawingContext drawingContext, Matrix4 renderTransformation, Vector4 cameraPosition)
         {
-            var transformation = renderTransformation;
+            var transformation = renderTransformation * Matrix4.CreateTranslation(this.Position.ToVector3());
 
             foreach (var face in this.Faces.OrderByDescending(f => f.DistanceRelativeTo(cameraPosition)))
             {
