@@ -209,9 +209,20 @@ namespace Graphics.Core
             }
         }
 
-        public void Rotate(Matrix4 rotation)
+        public void Rotate(double xRadians, double yRadians)
         {
-            _camera.Transform(rotation);
+            _camera.Rotate(xRadians, yRadians);
+        }
+
+        public void Tranlate(Vector4 translation)
+        {
+            _camera.Tranlate(translation);
+        }
+
+        public void Zoom(double factor)
+        {
+            var zoom = new Vector4(0, 0, factor, 1);
+            _camera.Tranlate(zoom);
         }
 
         public void OnRender(DrawingContext drawingContext)
@@ -225,10 +236,5 @@ namespace Graphics.Core
         }
 
         #endregion
-
-        public void Tranlate(Matrix4 translation)
-        {
-            _camera.Tranlate(translation);
-        }
     }
 }

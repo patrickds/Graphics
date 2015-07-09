@@ -10,8 +10,8 @@ namespace Graphics.Math
     {
         public const int DEFAULT_ROUNDNESS = 6;
         public const double PI = 3.14159265359d;
-        private const double ONE_RADIAN_IN_DEGREES = 57.295779513082320876798154814105d;
-        private const double ONE_DEGREE_IN_RADIANS = 0.01745329251994329576923690768489d;
+        public const double ONE_RADIAN_IN_DEGREES = 57.295779513082320876798154814105d;
+        public const double ONE_DEGREE_IN_RADIANS = 0.01745329251994329576923690768489d;
 
         public static double ToRadians(double degrees)
         {

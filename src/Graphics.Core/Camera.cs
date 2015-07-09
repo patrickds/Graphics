@@ -11,7 +11,7 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(0 , 0, 50, 1);
+            this.Position = new Vector4(0 , 0, -50, 1);
             this.Target = Vector4.Zero;
 
             // 110 degrees, close to human FoV
@@ -21,17 +21,7 @@ namespace Graphics.Core
             this.Far = far;
             _aspectRatio = aspectRatio;
 
-            this.CalculateAxis();
-            this.CalculateViewFrustrum();
-        }
-
-        private void CalculateAxis()
-        {
-            this.Gaze = (this.Target - this.Position).Normalize();
-            this.Right = this.Gaze.Cross(Vector4.J).Normalize();
-            this.Up = this.Right.Cross(this.Gaze).Normalize();
-
-            this.CalculateViewFrustrum();
+            this.Calculate();   
         }
 
         private double _aspectRatio = 1d;
@@ -45,10 +35,24 @@ namespace Graphics.Core
         public Vector3 LeftBottomNear { get; set; }
         public Vector3 RightTopFar { get; set; }
 
+        private void Calculate()
+        {
+            this.CalculateAxis();
+            this.CalculateViewFrustrum();
+        }
+
+        private void CalculateAxis()
+        {
+            this.Gaze = (this.Target - this.Position).Normalize();
+            this.Right = this.Gaze.Cross(Vector4.J).Normalize();
+            this.Up = this.Right.Cross(this.Gaze).Normalize();
+        }
+
         private void CalculateViewFrustrum()
         {
-            this.CalculateNearPlane();
-            this.CalculateFarPlane();
+            //this.CalculateNearPlane();
+            //this.CalculateFarPlane();
+            //this.CalculateFrustrum();
 
             double height = System.Math.Tan(this.FoV / 2d) * this.Near;
             double width = height * _aspectRatio;
@@ -57,7 +61,7 @@ namespace Graphics.Core
             double halfHeight = height / 2d;
 
             this.LeftBottomNear = new Vector3(-halfWidth, -halfHeight, this.Near);
-            this.RightTopFar = new Vector3(halfWidth, halfHeight, -this.Far);
+            this.RightTopFar = new Vector3(halfWidth, halfHeight, this.Far);
         }
 
         private void CalculateNearPlane()
@@ -134,23 +138,33 @@ namespace Graphics.Core
             this.LeftBottomNear = NearBottomLeft.ToVector3();
             this.RightTopFar = FarTopRight.ToVector3();
         }
-        
+
+        internal void Tranlate(Vector4 translation)
+        {
+            var xTranslation = this.Right * (translation.X / this.Position.Z);
+            var yTranslation = this.Up * (translation.Y / this.Position.Z);
+            var zTranslation = this.Gaze * translation.Z;
+
+            var translationVector = xTranslation + yTranslation + zTranslation;
+
+            this.Position += translationVector;
+            this.Target += translationVector;
+        }
+
+        internal void Rotate(double xRadians, double yRadians)
+        {
+            var xRotation = Matrix4.CreateRotation(this.Up.ToVector3(), -xRadians);
+            var yRotation = Matrix4.CreateRotation(this.Right.ToVector3(), yRadians);
+
+            this.Position = xRotation * yRotation * this.Position;
+
+            this.CalculateAxis();
+        }
+
         public void UpdateAspectRatio(double aspectRatio)
         {
             _aspectRatio = aspectRatio;
             this.CalculateViewFrustrum();
-        }
-
-        public override void Transform(Matrix4 matrix)
-        {
-            this.Position = matrix * this.Position;
-            this.CalculateAxis();
-        }
-
-        internal void Tranlate(Matrix4 matrix)
-        {
-            this.Position = matrix * this.Position;
-            this.Target = matrix * this.Target;
         }
     }
 }

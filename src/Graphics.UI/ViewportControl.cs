@@ -21,6 +21,7 @@ namespace Graphics.UI
         {
             _environment = new Environment();
             this.SizeChanged += ViewportControl_SizeChanged;
+
             this.CreateTestEntities();
         }
 
@@ -36,7 +37,7 @@ namespace Graphics.UI
 
         private void CreateTestEntities()
         {
-            var cube = Cube.Create(10, Vector4.Zero);
+            var cube = Cube.Create(10, new Vector4(0,5,0,1));
             _environment.Add(cube);
             this.InvalidateVisual();
         }
@@ -85,9 +86,21 @@ namespace Graphics.UI
 
         #region Public Methods
 
-        public void Transform(Matrix4 transformation)
+        public void Rotate(double xRadians, double yRadians)
         {
-            _environment.Transform(transformation);
+            _environment.Rotate(xRadians, yRadians);
+            this.InvalidateVisual();
+        }
+
+        public void Translate(Vector4 translation)
+        {
+            _environment.Tranlate(translation);
+            this.InvalidateVisual();
+        }
+
+        public void Zoom(double factor)
+        {
+            _environment.Zoom(factor);
             this.InvalidateVisual();
         }
 
@@ -98,20 +111,9 @@ namespace Graphics.UI
         private void ViewportControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             _environment.SetSize(e.NewSize.Width, e.NewSize.Height);
+            this.InvalidateVisual();
         }
 
         #endregion
-
-        internal void Rotate(Matrix4 rotation)
-        {
-            _environment.Rotate(rotation);
-            this.InvalidateVisual();
-        }
-
-        internal void Translate(Matrix4 translation)
-        {
-            _environment.Tranlate(translation);
-            this.InvalidateVisual();
-        }
     }
 }

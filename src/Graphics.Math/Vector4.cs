@@ -1,4 +1,5 @@
 ﻿using Graphics.Extensions;
+using System.Windows;
 
 namespace Graphics.Math
 {
@@ -56,6 +57,11 @@ namespace Graphics.Math
         public Vector3 ToVector3()
         {
             return new Vector3(_x, _y, _z);
+        }
+
+        public Point ToPoint()
+        {
+            return new Point(_x, _y);
         }
 
         public override bool Equals(object obj)
@@ -118,11 +124,27 @@ namespace Graphics.Math
             return new Vector4(x, y, z, w);
         }
 
+        public static Vector4 operator +(Vector4 v, double factor)
+        {
+            return new Vector4(v.X + factor,
+                               v.Y + factor,
+                               v.Z + factor,
+                               v.W);
+        }
+
         public static Vector4 operator *(Vector4 v, double factor)
         {
             return new Vector4(v.X * factor,
                                v.Y * factor,
                                v.Z * factor,
+                               v.W);
+        }
+
+        public static Vector4 operator /(Vector4 v, double factor)
+        {
+            return new Vector4(v.X / factor,
+                               v.Y / factor,
+                               v.Z / factor,
                                v.W);
         }
     }

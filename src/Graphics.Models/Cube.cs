@@ -85,6 +85,13 @@ namespace Graphics.Models
             top.Color = Brushes.Red;
             bottom.Color = Brushes.DeepSkyBlue;
 
+            front.Text = "front";
+            back.Text = "back";
+            right.Text = "right";
+            left.Text = "left";
+            top.Text = "top";
+            bottom.Text = "bottom";
+
             var cube = new Cube(new List<Face>()
                     {
                         bottom, left, front, top, right, back
