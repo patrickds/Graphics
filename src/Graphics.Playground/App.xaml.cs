@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Graphics
+namespace Graphics.Playground
 {
     /// <summary>
     /// Interaction logic for App.xaml

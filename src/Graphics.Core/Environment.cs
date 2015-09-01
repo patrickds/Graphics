@@ -16,7 +16,7 @@ namespace Graphics.Core
         public Environment()
         {
             _entities = new List<Entity>();
-            _camera = new Camera(1, 100, _width / _height);
+            _camera = new Camera(1, 1.5, _width / _height);
             this.AddDefaultEntities();
         }
 
@@ -46,7 +46,7 @@ namespace Graphics.Core
             double bottom = _camera.LeftBottomNear.Y;
             double top = _camera.RightTopFar.Y;
             double near = _camera.LeftBottomNear.Z;
-            double far = 2;
+            double far = _camera.RightTopFar.Z;
 
             Matrix4 cameraTranslation = new Matrix4(
                 1, 0, 0, -_camera.Position.X,
@@ -63,7 +63,7 @@ namespace Graphics.Core
             Matrix4 perspectiveProjection = new Matrix4(
                 near, 0, 0, 0,
                 0, near, 0, 0,
-                0, 0, near + far, -far * near,
+                0, 0, near + far, -(far * near),
                 0, 0, 1, 0);
 
             Matrix4 orthogonalProjection = new Matrix4(

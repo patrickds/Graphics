@@ -27,7 +27,7 @@ namespace Graphics.Core
         {
         }
 
-        private const double DEFAULT_SIZE = 300d;
+        private const double DEFAULT_SIZE = 50d;
         private const double DEFAULT_GRID_GAP = 10;
 
         private Pen _pen = new Pen(Brushes.Black, 2);
@@ -76,6 +76,7 @@ namespace Graphics.Core
                     maxZ = point.Z;
             }
 
+            var nearest = new Vector4(minX, minY, minZ, 1);
             var farest = new Vector4(maxX, maxY, maxZ, 1);
 
             return (position - farest).Magnitude;

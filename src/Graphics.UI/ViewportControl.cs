@@ -29,7 +29,7 @@ namespace Graphics.UI
 
         #region Attributes And Properties
 
-        private Environment _environment;
+        protected Environment _environment;
 
         #endregion
 
@@ -44,10 +44,9 @@ namespace Graphics.UI
             var numCubes = 5;
             double xpos = 0;
             double zpos = 0;
-
-            foreach (var item in Enumerable.Range(1, numCubes))
+            foreach (var z in Enumerable.Range(1, numCubes))
             {
-                foreach (var z in Enumerable.Range(1, numCubes))
+                foreach (var x in Enumerable.Range(1, numCubes))
                 {
                     _environment.Add(Cube.Create(10, new Vector4(xpos, 10, zpos, 1)));
                     _environment.Add(Cube.Create(10, new Vector4(-xpos, 10, zpos, 1)));
@@ -61,7 +60,7 @@ namespace Graphics.UI
             }
 
         }
-        
+
         private void Render(DrawingContext drawingContext)
         {
             _environment.OnRender(drawingContext);

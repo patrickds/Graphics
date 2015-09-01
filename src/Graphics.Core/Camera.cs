@@ -11,7 +11,7 @@ namespace Graphics.Core
     {
         public Camera(double near, double far, double aspectRatio)
         {
-            this.Position = new Vector4(40 , 70, -200, 1);
+            this.Position = new Vector4(50 , 50, -750, 1);
             this.Target = Vector4.Zero;
 
             // 110 degrees, close to human FoV
@@ -50,10 +50,6 @@ namespace Graphics.Core
 
         private void CalculateViewFrustrum()
         {
-            //this.CalculateNearPlane();
-            //this.CalculateFarPlane();
-            //this.CalculateFrustrum();
-
             double height = System.Math.Tan(this.FoV / 2d) * this.Near;
             double width = height * _aspectRatio;
 
@@ -62,6 +58,10 @@ namespace Graphics.Core
 
             this.LeftBottomNear = new Vector3(-halfWidth, -halfHeight, this.Near);
             this.RightTopFar = new Vector3(halfWidth, halfHeight, this.Far);
+
+            //this.CalculateNearPlane();
+            //this.CalculateFarPlane();
+            //this.CalculateFrustrum();
         }
 
         private void CalculateNearPlane()
@@ -74,16 +74,16 @@ namespace Graphics.Core
 
             var nearZ = ((this.Gaze * this.Near) + this.Position).Z;
 
-            var bottomLeftX = (this.Right * (-halfWidth)).X;
+            var bottomLeftX = (this.Right * (halfWidth)).X;
             var bottomLeftY = (this.Up * (-halfHeight)).Y;
 
-            var bottomRightX = (this.Right * (halfWidth)).X;
+            var bottomRightX = (this.Right * (-halfWidth)).X;
             var bottomRightY = (this.Up * (-halfHeight)).Y;
 
-            var topLeftX = (this.Right * (-halfWidth)).X;
+            var topLeftX = (this.Right * (halfWidth)).X;
             var topLeftY = (this.Up * (halfHeight)).Y;
 
-            var topRightX = (this.Right * (halfWidth)).X;
+            var topRightX = (this.Right * (-halfWidth)).X;
             var topRightY = (this.Up * (halfHeight)).Y;
 
             this.LeftBottomNear = new Vector3(bottomLeftX, bottomLeftY, nearZ);
@@ -99,16 +99,16 @@ namespace Graphics.Core
 
             var farZ = ((this.Gaze * this.Far) + this.Position).Z;
 
-            var bottomLeftX = (this.Right * (-halfWidth)).X;
+            var bottomLeftX = (this.Right * (halfWidth)).X;
             var bottomLeftY = (this.Up * (-halfHeight)).Y;
 
-            var bottomRightX = (this.Right * (halfWidth)).X;
+            var bottomRightX = (this.Right * (-halfWidth)).X;
             var bottomRightY = (this.Up * (-halfHeight)).Y;
 
-            var topLeftX = (this.Right * (-halfWidth)).X;
+            var topLeftX = (this.Right * (halfWidth)).X;
             var topLeftY = (this.Up * (halfHeight)).Y;
 
-            var topRightX = (this.Right * (halfWidth)).X;
+            var topRightX = (this.Right * (-halfWidth)).X;
             var topRightY = (this.Up * (halfHeight)).Y;
             
             this.RightTopFar = new Vector3(topRightX, topRightY, farZ);
