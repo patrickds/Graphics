@@ -13,8 +13,6 @@ namespace Graphics.Core
     {
         public Face(IEnumerable<Vector4> points)
         {
-            Contract.Requires<ArgumentException>(points.Count() > 2, "Cannot build a face with less than 3 points");
-
             this.Points = points;
             this.Color = Brushes.SaddleBrown;
         }

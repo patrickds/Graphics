@@ -118,18 +118,12 @@ namespace Graphics.Math
         }
 
         public static Matrix4 CreateScale(double factor)
-        {
-            Contract.Requires<ArgumentException>(factor != 0, "factor cannot be 0 or subject will disapear");
-            
+        {            
             return CreateScale(new Vector3(factor, factor, factor));
         }
 
         public static Matrix4 CreateScale(Vector3 factor)
         {
-            Contract.Requires<ArgumentException>(factor.X != 0, "factor.X cannot be 0 or it will distort subjects");
-            Contract.Requires<ArgumentException>(factor.Y != 0, "factor.Y cannot be 0 or it will distort subjects");
-            Contract.Requires<ArgumentException>(factor.Z != 0, "factor.Z cannot be 0 or it will distort subjects");
-
             return new Matrix4(factor.X, 0, 0, 0,
                                0, factor.Y, 0, 0,
                                0, 0, factor.Z, 0,
