@@ -1,4 +1,9 @@
-Graphics
+# 3D Software Engine
 
-Demo 3D rendering engine.
+3D softwared rendering used to learn perspective projection and all the math related.
 
+### Controls
+
+`Left button`: Pan 
+`Right button`: Rotation 
+`Scroll`: Zoom 

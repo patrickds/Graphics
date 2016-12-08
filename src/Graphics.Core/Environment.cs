@@ -178,7 +178,7 @@ namespace Graphics.Core
         private void AddDefaultEntities()
         {
             _entities.Add(new Origin());
-            _entities.Add(new Plane(Vector4.Zero, Vector3.K));
+            //_entities.Add(new Plane(Vector4.Zero, Vector3.K));
         }
 
         #endregion
