@@ -4,6 +4,8 @@
 
 ### Controls
 
-`Left button`: Pan 
-`Right button`: Rotation 
-`Scroll`: Zoom 
+`Left button:` Pan 
+
+`Right button:` Rotation 
+
+`Scroll:` Zoom 
